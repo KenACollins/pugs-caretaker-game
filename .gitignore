@@ -1,0 +1,3 @@
+# Dependencies:
+# o Coded without leading '/' means ignore this file/folder path everywhere found within project - current folder and subfolders.
+node_modules
