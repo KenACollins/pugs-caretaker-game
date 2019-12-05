@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux';
 //import { reducer as reduxForm } from 'redux-form';
-import fetchAllReducer from './fetchAllReducer';
+import pugsReducer from './pugsReducer';
 import imageReducer from './imageReducer';
-import careReducer from './careReducer';
 
 /**
  * This is where we name our state properties when using Redux. We want to give some thought 
@@ -11,7 +10,6 @@ import careReducer from './careReducer';
  */
 export default combineReducers({
     //form: reduxForm,
-    pugs: fetchAllReducer,
-    image: imageReducer,
-    careForPug: careReducer
+    pugs: pugsReducer,
+    image: imageReducer
 });
