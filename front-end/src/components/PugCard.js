@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PugCard = ({ name, temperament, weight, url }) => {
+const PugCard = ({ id, name, temperament, weight, url, pugCare }) => {  // Destructure incoming props parameter.
     return (
         <div className="row">
             <div className="col s12 m7">
@@ -14,8 +14,8 @@ const PugCard = ({ name, temperament, weight, url }) => {
                         <p style={{fontSize: 'smaller'}}>{weight} pounds</p>
                     </div>
                     <div className="card-action" style={{margin: 'auto'}}>
-                        <button className="waves-effect waves-light btn-small" style={{marginRight: '20px', backgroundColor: 'magenta'}}>Feed Me</button>
-                        <button className="waves-effect waves-light btn-small">Walk Me</button>
+                        <button onClick={() => pugCare(id, 0.5)} className="waves-effect waves-light btn-small" style={{marginRight: '20px', backgroundColor: 'purple'}}>Feed Me</button>
+                        <button onClick={() => pugCare(id, -0.25)} className="waves-effect waves-light btn-small">Walk Me</button>
                     </div>
                 </div>
             </div>

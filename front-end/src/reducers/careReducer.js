@@ -8,7 +8,7 @@ import { PUG_CARE } from '../actions/actionTypes';
  */
 export default function(pug = {}, action) {
     switch (action.type) {
-        case PUG_CARE: return {...pug, weight: pug.weight + action.payload.amount };
+        case PUG_CARE: return {...pug, weightInPounds: pug.weight + action.payload.weightChange };
         default: return pug;
     }
 }

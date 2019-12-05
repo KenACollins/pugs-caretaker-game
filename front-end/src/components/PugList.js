@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPugs } from '../actions';
+import { fetchPugs, servicePug } from '../actions';
 import PugCard from './PugCard';
 
 class PugList extends React.Component {
@@ -11,7 +11,7 @@ class PugList extends React.Component {
     
     renderList() {
         return this.props.pugs.map(pug => {
-            return <PugCard key={pug.id} name={pug.name} temperament={pug.temperament} weight={pug.weightInPounds} url={pug.url} />
+            return <PugCard key={pug.id} id={pug.id} name={pug.name} temperament={pug.temperament} weight={pug.weightInPounds} url={pug.url} pugCare={this.props.servicePug} />
         });
     }
     render() {
@@ -23,4 +23,4 @@ const mapStateToProps = state => {
     return { pugs: state.pugs };
 };
 
-export default connect(mapStateToProps, { fetchPugs })(PugList);
+export default connect(mapStateToProps, { fetchPugs, servicePug })(PugList);

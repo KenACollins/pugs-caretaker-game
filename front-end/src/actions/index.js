@@ -28,6 +28,6 @@ export const fetchImage = () => async dispatch => {
     dispatch({ type: FETCH_IMAGE, payload: response.data.pug });
 }
 
-export const servicePug = (pugId, amount) => dispatch => {
-    dispatch({ type: PUG_CARE, payload: { pugId, amount } });
+export const servicePug = (pugId = null, weightChange = 0) => dispatch => {
+    dispatch({ type: PUG_CARE, payload: { pugId, weightChange } });
 };
