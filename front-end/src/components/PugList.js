@@ -1,3 +1,4 @@
+// This component manages the display of one or more pug cards.
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchPugs, servicePug } from '../actions';

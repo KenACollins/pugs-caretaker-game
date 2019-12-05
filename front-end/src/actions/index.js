@@ -5,11 +5,11 @@ import originalPugs from '../pugs.json';
 /**
  * Both the fetchPugs and fetchImage action creators make third party API calls to retrieve one random URL to an image of a pug.
  * The third party API that returns random images of pugs, http://pugme.herokuapp.com/random, does not include a 
- * 'Access-Control-Allow-Origin' header in its response and this causes a CORS error. To avoid this nuisance, I installed 
+ * 'Access-Control-Allow-Origin' header in its response and this causes a CORS error. To avoid this nuisance, we installed 
  * http-proxy-middleware and configured src/setupProxy.js file.
  * 
  * The API response is in the data property and has the form {"pug":"http://27.media.tumblr.com/tumblr_ltuo57ahqE1qa6z3eo1_500.jpg"}
- * so I extract the image URL from response.data.pug property.
+ * so we extract the image URL from response.data.pug property.
  */
 
 export const fetchPugs = () => async dispatch => {

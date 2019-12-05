@@ -1,3 +1,4 @@
+// This is the header navigation bar at the top of every screen.
 import React from 'react';
 import { Link } from 'react-router-dom';
 

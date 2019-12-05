@@ -1,3 +1,4 @@
+// This component displays an individual pug - image and metadata that includes name, temperament, and weight.
 import React from 'react';
 
 const PugCard = ({ id, name, temperament, weight, url, pugCare }) => {  // Destructure incoming props parameter.
