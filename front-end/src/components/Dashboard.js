@@ -1,8 +1,9 @@
 import React from 'react';
+import PugList from './PugList';
 
 const Dashboard = () => {
     return (
-        <div>Dashboard</div>
+        <div><PugList /></div>
     );
 };
 
