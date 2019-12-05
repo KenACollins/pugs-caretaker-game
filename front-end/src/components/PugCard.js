@@ -1,13 +1,12 @@
 import React from 'react';
-// <img src="http://66.media.tumblr.com/tumblr_llr9e8mz5F1qaa50yo1_500.jpg" alt={`${temperament} pug`} />
+
 const PugCard = ({ name, temperament, weight, url }) => {
-    console.log(`Pug URL: ${url}`);
     return (
         <div className="row">
             <div className="col s12 m7">
                 <div className="card" style={{width: '250px'}}>
                     <div className="card-image">
-                        <img src={url} alt={`${temperament} pug`} />
+                        <img src={url} alt={`${temperament} pug`} style={{width: '250px', height: '200px'}}/>
                     </div>
                     <div className="card-content">
                         <span className="card-title" style={{fontWeight: '500'}}>{name}</span>
