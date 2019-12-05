@@ -1,17 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPugs } from '../actions';
+import { fetchPugs, fetchImage } from '../actions';
 import PugCard from './PugCard';
 
 class PugList extends React.Component {
     componentDidMount() {
         // Invoke this action creator to kick off Redux flow and update state.pugs property.
         this.props.fetchPugs();
+        this.props.fetchImage();
     }
-
+    
     renderList() {
+        console.log('PugList props image', this.props.image);
         return this.props.pugs.map(pug => {
-            return <PugCard key={pug.id} name={pug.name} temperament={pug.temperament} weight={pug.weightInPounds} />
+            //return <PugCard key={pug.id} name={pug.name} temperament={pug.temperament} weight={pug.weightInPounds} url={pug.url} />
+            return <PugCard key={pug.id} name={pug.name} temperament={pug.temperament} weight={pug.weightInPounds} url={this.props.image} />
         });
     }
     render() {
@@ -20,7 +23,7 @@ class PugList extends React.Component {
 };
 
 const mapStateToProps = state => {
-    return { pugs: state.pugs };
+    return { pugs: state.pugs, image: state.image };
 };
 
-export default connect(mapStateToProps, { fetchPugs })(PugList);
+export default connect(mapStateToProps, { fetchPugs, fetchImage })(PugList);
