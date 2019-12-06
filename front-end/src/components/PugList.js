@@ -1,10 +1,10 @@
 // This component manages the display of one or more pug cards.
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchPugs, servicePug } from '../actions';
 import PugCard from './PugCard';
 
-class PugList extends React.Component {
+class PugList extends Component {
     componentDidMount() {
         // Invoke fetchPugs action creator to kick off Redux flow and update state.pugs property that we receive below in this.props.pugs.
         this.props.fetchPugs();

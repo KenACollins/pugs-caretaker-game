@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-//import { reducer as reduxForm } from 'redux-form';
+import { reducer as reduxForm } from 'redux-form';
 import pugsReducer from './pugsReducer';
 import imageReducer from './imageReducer';
 
@@ -9,7 +9,7 @@ import imageReducer from './imageReducer';
  * In the case of Redux Form, it requires the key to be named 'form'.
  */
 export default combineReducers({
-    //form: reduxForm,
+    form: reduxForm,
     pugs: pugsReducer,
     image: imageReducer
 });

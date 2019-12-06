@@ -6,6 +6,7 @@ import * as actions from '../actions';
 import Header from './Header';
 import Landing from './Landing';
 import Dashboard from './Dashboard';
+import PugAddForm from './form/PugAddForm';
 
 class App extends Component {
     render() {
@@ -16,6 +17,7 @@ class App extends Component {
                         <Header />
                         <Route exact path="/" component={Landing} />
                         <Route exact path="/pugs" component={Dashboard} />
+                        <Route path="/pugs/new" component={PugAddForm} />
                     </div>
                 </BrowserRouter>
             </div>
