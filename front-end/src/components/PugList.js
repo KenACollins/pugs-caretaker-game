@@ -12,11 +12,19 @@ class PugList extends React.Component {
     
     renderList() {
         return this.props.pugs.map(pug => {
-            return <PugCard key={pug.id} id={pug.id} name={pug.name} temperament={pug.temperament} weight={pug.weightInPounds} url={pug.url} pugCare={this.props.servicePug} />
+            return (
+                <PugCard key={pug.id} id={pug.id} name={pug.name} temperament={pug.temperament} 
+                    weight={pug.weightInPounds} url={pug.url} pugCare={this.props.servicePug} isUnhealthy={pug.isUnhealthy} />
+            );
         });
     }
     render() {
-        return <div style={{display: 'flex', flexWrap: 'wrap'}}>{this.renderList()}</div>
+        return (
+            <>
+                <div className="positionItems">{this.renderList()}</div>
+                <style>{`.positionItems { display: flex; flex-wrap: wrap; }`}</style>
+            </>    
+        );    
     }
 };
 

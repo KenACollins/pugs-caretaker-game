@@ -7,7 +7,7 @@ const Header = () => {
         <nav>
             <div className="nav-wrapper">
                 <Link
-                    to={'/pugs'}
+                    to={'/'}
                     className="left brand-logo"
                 >
                     Pugs!
