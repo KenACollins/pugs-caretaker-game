@@ -54,11 +54,8 @@ export default function(pugs = [], action) {
             newPug.name = action.payload.name;
             newPug.temperament = [action.payload.temperament];  // Temperament must be stored in an array.
             newPug.weightInPounds = Number(action.payload.weightInPounds);  // Weight arrives as a string.
-            //newPug.url = 'http://66.media.tumblr.com/tumblr_llr9e8mz5F1qaa50yo1_500.jpg';   // Temporary hardcoding for now.
             newPug.url = action.payload.url;
-            console.log('New pug:', newPug);
             pugs.push(newPug);
-            console.log('pugsReducer all pugs:', pugs);
             return pugs;
         default:
             return pugs;
