@@ -1,7 +1,7 @@
 import { FETCH_PUGS, PUG_CARE, ADD_PUG } from '../actions/actionTypes';
 import { LOW_WEIGHT_TEMPERAMENT, HIGH_WEIGHT_TEMPERAMENT } from './unhealthyStates';
 import { LOW_WEIGHT_THRESHOLD, HIGH_WEIGHT_THRESHOLD } from './unhealthyStates';
-const uuidv1 = require('uuid/v1');
+const uuidv1 = require('uuid/v1');  // Package for generating a universally unique identifier (UUID).
 
 /**
  * The pugsReducer reducer handles all actions that affect the state.pugs property.
@@ -50,11 +50,12 @@ export default function(pugs = [], action) {
             });
         case ADD_PUG:       // Update pugs list with newest addition from form submission.
             const newPug = {};
-            newPug.id = uuidv1();
+            newPug.id = uuidv1();   // Generate a unique ID.
             newPug.name = action.payload.name;
             newPug.temperament = [action.payload.temperament];  // Temperament must be stored in an array.
             newPug.weightInPounds = Number(action.payload.weightInPounds);  // Weight arrives as a string.
-            newPug.url = 'http://66.media.tumblr.com/tumblr_llr9e8mz5F1qaa50yo1_500.jpg';   // Temporary hardcoding for now.
+            //newPug.url = 'http://66.media.tumblr.com/tumblr_llr9e8mz5F1qaa50yo1_500.jpg';   // Temporary hardcoding for now.
+            newPug.url = action.payload.url;
             console.log('New pug:', newPug);
             pugs.push(newPug);
             console.log('pugsReducer all pugs:', pugs);
