@@ -1,6 +1,6 @@
 [
-    {"id": "pug1", "name": "Pugsy", "temperament": ["Rambunctious"], "weightInPounds": 17 },
-    {"id": "pug2", "name": "Rocky", "temperament": ["Rowdy"], "weightInPounds": 15 },
-    {"id": "pug3", "name": "Zoolander", "temperament": ["Turbulent"], "weightInPounds": 18 },
-    {"id": "pug4", "name": "Precious", "temperament": ["Playful"], "weightInPounds": 13 }
+    {"id": "64f15f30-184d-11ea-8bfa-3114dc15cb66", "name": "Pugsy", "temperament": ["Rambunctious"], "weightInPounds": 17 },
+    {"id": "7f3d3e90-184d-11ea-8bfa-3114dc15cb66", "name": "Rocky", "temperament": ["Rowdy"], "weightInPounds": 15 },
+    {"id": "1272d520-184f-11ea-8bfa-3114dc15cb66", "name": "Zoolander", "temperament": ["Turbulent"], "weightInPounds": 18 },
+    {"id": "1fe66fa0-184f-11ea-8bfa-3114dc15cb66", "name": "Precious", "temperament": ["Playful"], "weightInPounds": 13 }
 ]

@@ -1,20 +1,28 @@
 // This component manages the display of one or more pug cards.
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPugs, servicePug } from '../actions';
+import { fetchPugs, servicePug, startGame } from '../actions';
 import PugCard from './PugCard';
 
 class PugList extends Component {
+    /**
+     * When starting a new game, invoke fetchPugs action creator to load starting set of pugs into state.pugs property that we receive below in this.props.pugs.
+     * Then invoke startGame() action creator to change loadOriginalPugsList state property to false so we prevent reloading original pugs as game play progresses.
+     */
     componentDidMount() {
-        // Invoke fetchPugs action creator to kick off Redux flow and update state.pugs property that we receive below in this.props.pugs.
-        this.props.fetchPugs();
+        const { loadOriginalPugsList, fetchPugs, startGame } = this.props;
+        if (loadOriginalPugsList) {
+            fetchPugs();
+            startGame();
+        }
     }
     
     renderList() {
-        return this.props.pugs.map(pug => {
+        const { pugs, servicePug } = this.props;
+        return pugs.map(({ id, name, temperament, weightInPounds, url, isUnhealthy }) => {
             return (
-                <PugCard key={pug.id} id={pug.id} name={pug.name} temperament={pug.temperament} 
-                    weight={pug.weightInPounds} url={pug.url} pugCare={this.props.servicePug} isUnhealthy={pug.isUnhealthy} />
+                <PugCard key={id} id={id} name={name} temperament={temperament} weight={weightInPounds}
+                    url={url} pugCare={servicePug} isUnhealthy={isUnhealthy} />
             );
         });
     }
@@ -29,7 +37,7 @@ class PugList extends Component {
 };
 
 const mapStateToProps = state => {
-    return { pugs: state.pugs };
+    return { pugs: state.pugs, loadOriginalPugsList: state.loadOriginalPugsList };
 };
 
-export default connect(mapStateToProps, { fetchPugs, servicePug })(PugList);
+export default connect(mapStateToProps, { fetchPugs, servicePug, startGame })(PugList);

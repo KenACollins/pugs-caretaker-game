@@ -10,9 +10,9 @@ import reducers from './reducers';      // Actual export name is "combineReducer
 
 /**
  * Create Redux store and pass the following parameters.
- * 1) all the reducers
- * 2) initial state of application - most relevant when taking care of server-side rendering.  For now pass in empty object.
- * 3) middleware - Redux Thunk.
+ * 1) All reducers.
+ * 2) Initial state of application - most relevant when taking care of server-side rendering.  For now pass in empty object.
+ * 3) Middleware - Redux Thunk.
  */
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 

@@ -33,11 +33,12 @@ class PugFormEdit extends Component {
 }
 
 /**
- * Create validate() function with rules for form validation. It will be the value set for validate property passed in export to reduxForm().
+ * Create validate() function with rules for form validation. It will be the values set for validate property passed in export to reduxForm().
  * Note: Redux Form automatically runs our validate() function the first time it loads the form. This can be annoying for users to get errors
  * before they have begun to fill out the form. We take care of avoiding missing fields errors in the PugField component by checking if
  * fields are touched.
- * @param {Object} values Object supplied by Redux Form containing the name properties and user-entered data of all form fields.
+ * @param {Object} values Object supplied by Redux Form containing the name properties and user-entered data of all form fields. Stored in
+ * state.form.pugFormEdit.values.
  */
 function validate(values) {
     const errors = {};
@@ -47,7 +48,7 @@ function validate(values) {
      * This code runs when form first loads and values.weightInPounds is null. Avoid error with 'or empty string' clause.
      * If this code were placed after the formFields.forEach() statement, the invalid weight error would replace the missing weight error.
      */
-    const weightEntered = new Number(values.weightInPounds);
+    const weightEntered = Number(values.weightInPounds);
     if (weightEntered === null || weightEntered < 13 || weightEntered > 20) {
         errors.weightInPounds = "Weight must be a number between 13 and 20.";
     }

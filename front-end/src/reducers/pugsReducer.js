@@ -1,12 +1,15 @@
-import { FETCH_PUGS, PUG_CARE } from '../actions/actionTypes';
+import { FETCH_PUGS, PUG_CARE, ADD_PUG } from '../actions/actionTypes';
 import { LOW_WEIGHT_TEMPERAMENT, HIGH_WEIGHT_TEMPERAMENT } from './unhealthyStates';
 import { LOW_WEIGHT_THRESHOLD, HIGH_WEIGHT_THRESHOLD } from './unhealthyStates';
+const uuidv1 = require('uuid/v1');
 
 /**
  * The pugsReducer reducer handles all actions that affect the state.pugs property.
  * 
  * Set default return value for state.pugs property to an empty array indicating when app first boots up, we do not yet have a list of pugs.
  * Thereafter, we will return an updated list of pugs.
+ * @param {Array} pugs - Previous state of pugs property
+ * @param {Object} action - 
  */
 export default function(pugs = [], action) {
     switch (action.type) {
@@ -45,6 +48,17 @@ export default function(pugs = [], action) {
                  }
                 return pug;
             });
+        case ADD_PUG:       // Update pugs list with newest addition from form submission.
+            const newPug = {};
+            newPug.id = uuidv1();
+            newPug.name = action.payload.name;
+            newPug.temperament = [action.payload.temperament];  // Temperament must be stored in an array.
+            newPug.weightInPounds = Number(action.payload.weightInPounds);  // Weight arrives as a string.
+            newPug.url = 'http://66.media.tumblr.com/tumblr_llr9e8mz5F1qaa50yo1_500.jpg';   // Temporary hardcoding for now.
+            console.log('New pug:', newPug);
+            pugs.push(newPug);
+            console.log('pugsReducer all pugs:', pugs);
+            return pugs;
         default:
             return pugs;
     }
