@@ -8,8 +8,8 @@ const Landing = () => {
         <>
             <div className="center">
                 <h1>Pugs!</h1>
-                Manage a collection of virtual pets.
-                <div><Link to={'/pugs'}>Let's Go!</Link></div>
+                <h6>Manage a collection of virtual pets.</h6>
+                <h6><Link to={'/pugs'}>Let's Go!</Link></h6>
             </div>
             <style>{`.center { text-align: center; }`}</style>
         </>

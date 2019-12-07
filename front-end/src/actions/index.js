@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { START_GAME, FETCH_PUGS, FETCH_IMAGE, PUG_CARE, ADD_PUG, REMOVE_PUG } from './actionTypes';
+import { START_GAME, FETCH_PUGS, FETCH_IMAGE, PUG_CARE } from './actionTypes';
+import { ADD_PUG, REMOVE_PUG, COUNT_DEAD_PUGS } from './actionTypes';
 import originalPugs from '../pugs.json';
 
 // Sets Boolean flag after initial game start to prevent PugList from reloading original set of pugs, wiping out current state of pugs.
@@ -55,4 +56,9 @@ export const submitPugRequest = (formValues, history) => async dispatch => {
 // Removes pug that has died from list of pugs maintained in memory.
 export const removePug = (pugId = null) => dispatch => {
     dispatch({ type: REMOVE_PUG, payload: { pugId } });
+};
+
+// Counts the number of pugs that have died under the caretaker's watch.
+export const countDeadPugs = () => dispatch => {
+    dispatch({ type: COUNT_DEAD_PUGS });
 };

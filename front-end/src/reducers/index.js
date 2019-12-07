@@ -3,6 +3,7 @@ import { reducer as reduxForm } from 'redux-form';
 import pugsReducer from './pugsReducer';
 import imageReducer from './imageReducer';
 import gameReducer from './gameReducer';
+import deadPugsReducer from './deadPugsReducer';
 
 /**
  * This is where we name our state properties, which we reference in action creators, when using Redux. We want to give some thought 
@@ -12,5 +13,6 @@ export default combineReducers({
     form: reduxForm,
     pugs: pugsReducer,
     image: imageReducer,
-    loadOriginalPugsList: gameReducer
+    loadOriginalPugsList: gameReducer,
+    deadPugsCount: deadPugsReducer
 });

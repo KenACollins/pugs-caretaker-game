@@ -1,13 +1,14 @@
 // This component displays an individual pug - image and metadata that includes name, temperament, weight, and health status.
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { removePug } from '../actions';
+import { removePug, countDeadPugs } from '../actions';
 import { UNDERWEIGHT_WEIGHT_THRESHOLD, OVERWEIGHT_WEIGHT_THRESHOLD } from '../reducers/unhealthyStates';
 import { UNDERWEIGHT_COUNTDOWN_TOTAL, UNDERWEIGHT_COUNTDOWN_THRESHOLD } from '../reducers/unhealthyStates';
 import { OVERWEIGHT_COUNTDOWN_TOTAL, OVERWEIGHT_COUNTDOWN_THRESHOLD } from '../reducers/unhealthyStates';
 import { NEGLECTED_COUNTDOWN_TOTAL, NEGLECTED_COUNTDOWN_THRESHOLD } from '../reducers/unhealthyStates';
 
 class PugCard extends Component {
+    state = { secondsTilDeath: null };
     deathTimerId = null;
     pugLifeRemainingInSeconds = 9999999;    // Just set to a big number on initialization. Will be reset if pug becomes unhealthy.
     pugLifeCountdownThreshold = 9999999;    // Just set to a big number on initialization. Will be reset if pug becomes unhealthy.
@@ -21,15 +22,26 @@ class PugCard extends Component {
         return null;
     }
 
+    showSecondsUntilDeath() {
+        if (Number.isInteger(this.state.secondsTilDeath)) {
+            return <span>&rarr; dead in {this.state.secondsTilDeath}</span>;
+        }
+        return '';
+    }
+
     startDeathTimer = () => {
         this.pugLifeRemainingInSeconds--;
         console.log(`${this.props.name} countdown to death: ${this.pugLifeRemainingInSeconds}`);
+        if (this.pugLifeRemainingInSeconds <= this.pugLifeCountdownThreshold) {
+            this.setState({ secondsTilDeath: this.pugLifeRemainingInSeconds });
+        }
         if (this.pugLifeRemainingInSeconds === 0) { // Cancel timer, fade out dead pug, and remove it from state.
             // alert(`Sadly, ${this.props.name} has died.`);
             console.log(`Time is up. ${this.props.name} has died with deathTimerId:`, this.deathTimerId);
             this.stopDeathTimer();
             this.cardRef.current.classList.add('fadeOut');
-            this.props.removePug(this.props.id);    // Call removePug() action creator to kick off state.pugs change for dead pug.  
+            this.props.removePug(this.props.id);    // Call removePug() action creator to kick off state.pugs change for dead pug.
+            this.props.countDeadPugs();
         }
     }
 
@@ -111,7 +123,7 @@ class PugCard extends Component {
                     </div>
                     <div className="card-content">
                         <span className="card-title">{name}</span>
-                        <p className={(isUnhealthy) ? 'unhealthyTemperament' : null}>{temperament[0]} {this.showUnhappyIcon()}</p>
+                        <p className={(isUnhealthy) ? 'unhealthyTemperament' : null}>{temperament[0]} {this.showUnhappyIcon()} {this.showSecondsUntilDeath()}</p>
                         <p className="subtext">{weight} pounds</p>
                     </div>
                     <div className="card-action">
@@ -123,7 +135,7 @@ class PugCard extends Component {
                     .card { width: 250px; margin: .5rem 2rem 1rem 0; }
                     .card-image img { width: 250px; height: 200px; }
                     .card .card-title { font-weight: 500; }
-                    .unhealthyTemperament { color: red; font-weight: 500; }
+                    .unhealthyTemperament { color: red; }
                     .subtext { font-size: smaller; }
                     .leftButton { margin-right: 20px; }
                     .rightButton { background-color: rgb(40, 88, 123); }
@@ -136,4 +148,4 @@ class PugCard extends Component {
 
 }
 
-export default connect(null, { removePug })(PugCard);
+export default connect(null, { removePug, countDeadPugs })(PugCard);

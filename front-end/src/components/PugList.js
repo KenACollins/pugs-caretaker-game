@@ -1,7 +1,7 @@
 // This component manages the display of one or more pug cards.
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchPugs, servicePug, startGame } from '../actions';
+import { fetchPugs, startGame, servicePug } from '../actions';
 import PugCard from './PugCard';
 
 class PugList extends Component {
@@ -18,7 +18,10 @@ class PugList extends Component {
     }
     
     renderList() {
-        const { pugs, servicePug } = this.props;
+        const { pugs, deadPugsCount, servicePug } = this.props;
+        if (pugs.length === 0 && deadPugsCount > 0) {
+            return <h5>Sadly, {deadPugsCount} pugs have died in your care. Maybe you should try something else?</h5>
+        }
         return pugs.map(({ id, name, temperament, weightInPounds, url, isUnhealthy }) => {
             return (
                 <PugCard key={id} id={id} name={name} temperament={temperament} weight={weightInPounds}
@@ -37,7 +40,7 @@ class PugList extends Component {
 };
 
 const mapStateToProps = state => {
-    return { pugs: state.pugs, loadOriginalPugsList: state.loadOriginalPugsList };
+    return { pugs: state.pugs, loadOriginalPugsList: state.loadOriginalPugsList, deadPugsCount: state.deadPugsCount };
 };
 
-export default connect(mapStateToProps, { fetchPugs, servicePug, startGame })(PugList);
+export default connect(mapStateToProps, { fetchPugs, startGame, servicePug })(PugList);
