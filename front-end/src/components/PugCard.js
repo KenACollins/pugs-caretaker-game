@@ -1,8 +1,17 @@
 // This component displays an individual pug - image and metadata that includes name, temperament, weight, and health status.
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { removePug } from '../actions';
+import { UNDERWEIGHT_WEIGHT_THRESHOLD, OVERWEIGHT_WEIGHT_THRESHOLD } from '../reducers/unhealthyStates';
+import { UNDERWEIGHT_COUNTDOWN_TOTAL, UNDERWEIGHT_COUNTDOWN_THRESHOLD } from '../reducers/unhealthyStates';
+import { OVERWEIGHT_COUNTDOWN_TOTAL, OVERWEIGHT_COUNTDOWN_THRESHOLD } from '../reducers/unhealthyStates';
+import { NEGLECTED_COUNTDOWN_TOTAL, NEGLECTED_COUNTDOWN_THRESHOLD } from '../reducers/unhealthyStates';
 
 class PugCard extends Component {
-    state = { deathTimerId: null, pugLifeRemainingInSeconds: 10 };
+    deathTimerId = null;
+    pugLifeRemainingInSeconds = 9999999;    // Just set to a big number on initialization. Will be reset if pug becomes unhealthy.
+    pugLifeCountdownThreshold = 9999999;    // Just set to a big number on initialization. Will be reset if pug becomes unhealthy.
+    cardRef = React.createRef();    // Access pug card through React, rather than via DOM with document.querySelector(".card").
 
     showUnhappyIcon() {
         if (this.props.isUnhealthy) {
@@ -13,19 +22,32 @@ class PugCard extends Component {
     }
 
     deathTimer = () => {
-        console.log(`Inside deathTimer for ${this.props.name}, deathTimerId is:`, this.state.deathTimerId);
-        this.setState(state => ({ pugLifeRemainingInSeconds: state.pugLifeRemainingInSeconds - 1 }));
-        console.log(`${this.props.name} countdown to death: ${this.state.pugLifeRemainingInSeconds}`);
-        if (this.state.pugLifeRemainingInSeconds === 0) {
-            alert(`Sadly, ${this.props.name} has died.`);
-            console.log(`Time is up. Will reset ${this.props.name}'s deathTimerId`, this.state.deathTimerId);
-            clearInterval(this.state.deathTimerId);
-            this.setState({ deathTimerId: null, pugLifeRemainingInSeconds: 10 });   // Also reset pugLifeRemainingInSeconds for next time since it is zero.
+        this.pugLifeRemainingInSeconds--;
+        console.log(`${this.props.name} countdown to death: ${this.pugLifeRemainingInSeconds}`);
+        if (this.pugLifeRemainingInSeconds === 0) { // Cancel timer, fade out dead pug, and remove it from state.
+            // alert(`Sadly, ${this.props.name} has died.`);
+            console.log(`Time is up. ${this.props.name} has died with deathTimerId:`, this.deathTimerId);
+            clearInterval(this.deathTimerId);
+            this.deathTimerId = null;
+            this.cardRef.current.classList.add('fadeOut');
+            this.props.removePug(this.props.id);    // Call removePug() action creator to kick off state.pugs change for dead pug.  
         }
-/*         else {
-            this.setState({ deathTimerId: setTimeout(this.deathTimer, 1000) });
-            console.log(`Running timer for another second with ${this.props.name}'s deathTimerId`, this.state.deathTimerId);
-        } */
+    }
+
+    resetUnhealthyPugLifeExpectancy() {
+        const { weight } = this.props;    // Destructure incoming props parameter.
+        if (weight < UNDERWEIGHT_WEIGHT_THRESHOLD) {
+            this.pugLifeRemainingInSeconds = UNDERWEIGHT_COUNTDOWN_TOTAL;
+            this.pugLifeCountdownThreshold = UNDERWEIGHT_COUNTDOWN_THRESHOLD;
+        }
+        else if (weight > OVERWEIGHT_WEIGHT_THRESHOLD) {
+            this.pugLifeRemainingInSeconds = OVERWEIGHT_COUNTDOWN_TOTAL;
+            this.pugLifeCountdownThreshold = OVERWEIGHT_COUNTDOWN_THRESHOLD;
+        }
+        else {  // Otherwise, a pug in the normal range has become unhealthy due to a long period of inactivity.
+            this.pugLifeRemainingInSeconds = NEGLECTED_COUNTDOWN_TOTAL;
+            this.pugLifeCountdownThreshold = NEGLECTED_COUNTDOWN_THRESHOLD;
+        }
     }
 
     /**
@@ -34,18 +56,21 @@ class PugCard extends Component {
      * takes appropriate action to feed or walk pug to restore its health, we can cancel the timer.
      */
     componentDidUpdate() {
+        const { name, isUnhealthy } = this.props;    // Destructure incoming props parameter.
         console.log('Running componentDidUpdate()...');
-        if (this.props.isUnhealthy) {
-            if (this.state.deathTimerId === null) { // If we have not yet set a death timer because this is the first time pug has crossed threshold into unhealthy state... 
-                this.setState({ deathTimerId: setInterval(this.deathTimer, 1000) }); // Activate death timer.
-                console.log(`Starting new timer for ${this.props.name}, assigning deathTimerId:`, this.state.deathTimerId);
-                console.log(`${this.props.name} countdown to death: ${this.state.pugLifeRemainingInSeconds}`);
+        if (isUnhealthy) {
+            if (this.deathTimerId === null) { // Set death timer if this is the first time pug has crossed threshold into unhealthy state.
+                this.resetUnhealthyPugLifeExpectancy();
+                this.deathTimerId = setInterval(this.deathTimer, 1000); // Activate death timer and save assigned ID.
+                console.log(`Starting new timer for ${name}, assigning deathTimerId:`, this.deathTimerId);
+                console.log(`${name} countdown to death: ${this.pugLifeRemainingInSeconds}`);
             }
         }
         else {  // Otherwise, pug is healthy.
-            if (this.state.deathTimerId !== null) { // If pug has just returned to health after a prior unhealthy state, cancel the death timer.
-                clearInterval(this.state.deathTimerId);
-                this.setState({ deathTimerId: null, pugLifeRemainingInSeconds: 10 });
+            if (this.deathTimerId !== null) { // If pug has just returned to health after a prior unhealthy state..., cancel the death timer.
+                console.log(`${name} is now healthy! Stop the timer with deathTimerId:`, this.deathTimerId);
+                clearInterval(this.deathTimerId);       // Cancel death timer.
+                this.deathTimerId = null;               // Clear timer ID for possible unhealthy status in future.
             }
         }
     }
@@ -56,8 +81,8 @@ class PugCard extends Component {
      * game as the timer would never stop.
      */
     componentWillUnmount() {
-        clearInterval(this.state.deathTimerId);
-        this.setState({ deathTimerId: null, pugLifeRemainingInSeconds: 10 });   // Component is going away, we really don't need to do this.
+        clearInterval(this.deathTimerId);
+        this.deathTimerId = null;
     }
 
     render() {
@@ -65,7 +90,7 @@ class PugCard extends Component {
 
         return (
             <>
-                <div className="card">
+                <div className="card" ref={this.cardRef}>
                     <div className="card-image">
                         <img src={url} alt={`${temperament[0]} pug`} />
                     </div>
@@ -87,6 +112,8 @@ class PugCard extends Component {
                     .subtext { font-size: smaller; }
                     .leftButton { margin-right: 20px; }
                     .rightButton { background-color: rgb(40, 88, 123); }
+                    .fadeOut { animation: fadeOutKF 1s; }
+                    @keyframes fadeOutKF { from { opacity: 1; } to { opacity: 0; } }
                 `}</style>
             </>
         );
@@ -94,4 +121,4 @@ class PugCard extends Component {
 
 }
 
-export default PugCard;
+export default connect(null, { removePug })(PugCard);

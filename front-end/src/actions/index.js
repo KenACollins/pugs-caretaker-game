@@ -1,6 +1,11 @@
 import axios from 'axios';
-import { FETCH_PUGS, FETCH_IMAGE, PUG_CARE, ADD_PUG, START_GAME } from './actionTypes';
+import { START_GAME, FETCH_PUGS, FETCH_IMAGE, PUG_CARE, ADD_PUG, REMOVE_PUG } from './actionTypes';
 import originalPugs from '../pugs.json';
+
+// Sets Boolean flag after initial game start to prevent PugList from reloading original set of pugs, wiping out current state of pugs.
+export const startGame = () => dispatch => {
+    dispatch({ type: START_GAME, payload: false });
+};
 
 /**
  * Both the fetchPugs and submitPugRequest action creators make third party API calls to retrieve one random URL to an image of a pug.
@@ -13,7 +18,7 @@ import originalPugs from '../pugs.json';
  */
 
 // Loads initial set of pugs from data store and obtains an image for each one. 
-export const fetchPugs = (getState) => async dispatch => {
+export const fetchPugs = () => async dispatch => {
     // Loop through each of the pugs and retrieve an image URL that is then appended to url property of each pug.
     const promisesArray = await originalPugs.map(async pug => {
         const response = await axios.get('/random');
@@ -25,10 +30,11 @@ export const fetchPugs = (getState) => async dispatch => {
 };
 
 // Retrieves an image of a pug not associated with any displayed on-screen.
-// ABANDONED: This action creator and its corresponding imageReducer reducer are not being used.
-//            I thought I would need this for new pug form submission but could not find a way to
-//            invoke this action creator either (A) in the PugAddForm and PugFormEdit components 
-//            managed by Redux Form, or (B) from the submitPugRequest action creator.
+// ABANDONED: 
+// This action creator and its corresponding imageReducer reducer are not being used.
+// I thought I would need this for new pug form submission but could not find a way to
+// invoke this action creator in the PugAddForm and PugFormEdit components managed by 
+// Redux Form.
 export const fetchImage = () => async dispatch => {
     const response = await axios.get('/random');
     dispatch({ type: FETCH_IMAGE, payload: response.data.pug });
@@ -46,7 +52,7 @@ export const submitPugRequest = (formValues, history) => async dispatch => {
     history.push('/pugs');   // React Router way to redirect user after form submission.
 };
 
-// Sets Boolean flag after initial game start to prevent PugList from reloading original set of pugs, wiping out current state of pugs.
-export const startGame = () => dispatch => {
-    dispatch({ type: START_GAME, payload: false });
+// Removes pug that has died from list of pugs maintained in memory.
+export const removePug = (pugId = null) => dispatch => {
+    dispatch({ type: REMOVE_PUG, payload: { pugId } });
 };
