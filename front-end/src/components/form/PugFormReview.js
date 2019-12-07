@@ -23,18 +23,24 @@ const PugFormReview = ({ onCancel, formValues, submitPugRequest, history }) => {
     });
 
     return (
-        <div>
-            <h5>Ready to take care of your new pug?</h5>
-            <h6>Please confirm your entries or click Back to return to the previous screen to make changes.</h6>
-            {reviewFields}
-            <button className="yellow darken-3 white-text btn-flat" style={{marginTop: '40px'}} onClick={onCancel}>
-                Back
-            </button>
-            <button className="green btn-flat right white-text" style={{marginTop: '40px'}} onClick={() => submitPugRequest(formValues, history)}>
-                Add Pug
-                <i className="material-icons right">pets</i>
-            </button>
-        </div>
+        <>
+            <div className="container">
+                <h5>Ready to take care of your new pug?</h5>
+                <h6>Please confirm your entries or click Back to return to the previous screen to make changes.</h6>
+                {reviewFields}
+                <button className="subdued-purple-secondary-button darken-3 btn-flat" style={{marginTop: '40px'}} onClick={onCancel}>
+                    Back
+                </button>
+                <button className="subdued-purple btn-flat right white-text" style={{marginTop: '40px'}} onClick={() => submitPugRequest(formValues, history)}>
+                    Add Pug
+                    <i className="material-icons right">pets</i>
+                </button>
+            </div>
+            <style>{`
+                    .subdued-purple { background-color: rgb(127, 124, 175); }
+                    .subdued-purple-secondary-button { border: 2px solid rgb(127, 124, 175); color: rgb(127, 124, 175); }
+            `}</style>
+        </>
     );
 };
 

@@ -5,14 +5,17 @@ import PugList from './PugList';
 
 const Dashboard = () => {
     return (
-        <div>
-            <PugList />
-            <div className="fixed-action-btn">
-                <Link to="/pugs/new" className="btn-floating btn-large red">
-                    <i className="large material-icons">add</i>
-                </Link>
+        <>
+            <div className="container">
+                <PugList />
+                <div className="fixed-action-btn">
+                    <Link to="/pugs/new" className="btn-floating btn-large subdued-purple">
+                        <i className="large material-icons">add</i>
+                    </Link>
+                </div>
             </div>
-        </div>
+            <style>{`.subdued-purple { background-color: rgb(127, 124, 175); }`}</style>
+        </>
     );
 };
 

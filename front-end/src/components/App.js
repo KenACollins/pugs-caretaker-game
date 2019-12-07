@@ -11,16 +11,14 @@ import PugAddForm from './form/PugAddForm';
 class App extends Component {
     render() {
         return (
-            <div className="container">
-                <BrowserRouter>
-                    <div>
-                        <Header />
-                        <Route exact path="/" component={Landing} />
-                        <Route exact path="/pugs" component={Dashboard} />
-                        <Route path="/pugs/new" component={PugAddForm} />
-                    </div>
-                </BrowserRouter>
-            </div>
+            <BrowserRouter>
+                <div>
+                    <Header />
+                    <Route exact path="/" component={Landing} />
+                    <Route exact path="/pugs" component={Dashboard} />
+                    <Route path="/pugs/new" component={PugAddForm} />
+                </div>
+            </BrowserRouter>
         );
     }
 }

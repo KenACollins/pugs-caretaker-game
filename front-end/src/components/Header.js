@@ -4,22 +4,19 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
     return (
-        <nav>
-            <div className="nav-wrapper">
-                <Link
-                    to={'/'}
-                    className="left brand-logo"
-                >
-                    Pugs!
-                </Link>
-                <Link
-                    to={'/pugs'}
-                    className="right"
-                >
-                    Let's Go!
-                </Link>
-            </div>
-        </nav>
+        <>
+            <nav className="subdued-purple">
+                <div className="nav-wrapper container">
+                    <Link
+                        to={'/'}
+                        className="left brand-logo"
+                    >
+                        Pugs!
+                    </Link>
+                </div>
+            </nav>
+            <style>{`.subdued-purple { background-color: rgb(127, 124, 175); }`}</style>
+        </>
     );
 };
 

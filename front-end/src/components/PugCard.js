@@ -12,32 +12,28 @@ const PugCard = ({ id, name, temperament, weight, url, pugCare, isUnhealthy }) =
 
     return (
         <>
-            <div className="row">
-                <div className="col s12 m7">
-                    <div className="card">
-                        <div className="card-image">
-                            <img src={url} alt={`${temperament[0]} pug`} />
-                        </div>
-                        <div className="card-content">
-                            <span className="card-title">{name}</span>
-                            <p className={(isUnhealthy) ? 'unhealthyTemperament' : null}>{temperament[0]} {showUnhappyIcon()}</p>
-                            <p className="subtext">{weight} pounds</p>
-                        </div>
-                        <div className="card-action">
-                            <button onClick={() => pugCare(id, 0.5)} className="waves-effect waves-light btn-small leftButton">Feed Me</button>
-                            <button onClick={() => pugCare(id, -0.25)} className="waves-effect waves-light btn-small rightButton">Walk Me</button>
-                        </div>
-                    </div>
+            <div className="card">
+                <div className="card-image">
+                    <img src={url} alt={`${temperament[0]} pug`} />
+                </div>
+                <div className="card-content">
+                    <span className="card-title">{name}</span>
+                    <p className={(isUnhealthy) ? 'unhealthyTemperament' : null}>{temperament[0]} {showUnhappyIcon()}</p>
+                    <p className="subtext">{weight} pounds</p>
+                </div>
+                <div className="card-action">
+                    <button onClick={() => pugCare(id, 0.5)} className="waves-effect waves-light btn-small leftButton">Feed Me</button>
+                    <button onClick={() => pugCare(id, -0.25)} className="waves-effect waves-light btn-small rightButton">Walk Me</button>
                 </div>
             </div>
             <style>{`
-                .card { width: 250px; }
+                .card { width: 250px; margin: .5rem 2rem 1rem 0; }
                 .card-image img { width: 250px; height: 200px; }
                 .card .card-title { font-weight: 500; }
                 .unhealthyTemperament { color: red; font-weight: 500; }
                 .subtext { font-size: smaller; }
-                .leftButton { margin-right: 20px; background-color: purple; }
-                .rightButton { background-color: blue; }
+                .leftButton { margin-right: 20px; }
+                .rightButton { background-color: rgb(40, 88, 123); }
             `}</style>
         </>
     );

@@ -16,18 +16,24 @@ class PugFormEdit extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.props.handleSubmit(this.props.onFormSubmit)}>
-                    {this.renderFields()}
-                    <Link to="/pugs" className="red btn-flat white-text">
-                        Cancel
-                    </Link>
-                    <button type="submit" className="teal btn-flat right white-text">
-                        Next
-                        <i className="material-icons right">done</i>
-                    </button>
-                </form>
-            </div>
+            <>
+                <div className="container">
+                    <form onSubmit={this.props.handleSubmit(this.props.onFormSubmit)}>
+                        {this.renderFields()}
+                        <Link to="/pugs" className="subdued-purple-secondary-button btn-flat">
+                            Cancel
+                        </Link>
+                        <button type="submit" className="subdued-purple btn-flat right white-text">
+                            Next
+                            <i className="material-icons right">done</i>
+                        </button>
+                    </form>
+                </div>
+                <style>{`
+                    .subdued-purple { background-color: rgb(127, 124, 175); }
+                    .subdued-purple-secondary-button { border: 2px solid rgb(127, 124, 175); color: rgb(127, 124, 175); }
+                `}</style>
+            </>
         );
     }
 }
