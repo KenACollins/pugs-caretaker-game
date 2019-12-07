@@ -21,16 +21,45 @@ class PugCard extends Component {
         return null;
     }
 
-    deathTimer = () => {
+    startDeathTimer = () => {
         this.pugLifeRemainingInSeconds--;
         console.log(`${this.props.name} countdown to death: ${this.pugLifeRemainingInSeconds}`);
         if (this.pugLifeRemainingInSeconds === 0) { // Cancel timer, fade out dead pug, and remove it from state.
             // alert(`Sadly, ${this.props.name} has died.`);
             console.log(`Time is up. ${this.props.name} has died with deathTimerId:`, this.deathTimerId);
-            clearInterval(this.deathTimerId);
-            this.deathTimerId = null;
+            this.stopDeathTimer();
             this.cardRef.current.classList.add('fadeOut');
             this.props.removePug(this.props.id);    // Call removePug() action creator to kick off state.pugs change for dead pug.  
+        }
+    }
+
+    stopDeathTimer = () => {
+        clearInterval(this.deathTimerId);   // Cancel death timer.
+        this.deathTimerId = null;           // Clear timer ID for possible unhealthy status in future.
+    }
+
+    /**
+     * Every time this component renders it will have a new set of props and state. We want to check to see if the pug is healthy
+     * at this point because if not, we need to activate a 'death timer' to countdown to his or her demise. Once caretaker
+     * takes appropriate action to feed or walk pug to restore its health, we can cancel the timer.
+     */
+    checkPugHealthStatus() {
+        const { name, isUnhealthy } = this.props;    // Destructure incoming props parameter.
+        if (isUnhealthy) { 
+            // componentDidUpdate(): Activate death timer if, after feed/walk clicks, this is the first time pug has crossed over into unhealthy state.
+            // componentDidMount():  Reactivate death timer if caretaker left pugs screen while unhealthy timer was in effect and has now returned.
+            if (this.deathTimerId === null) {
+                this.resetUnhealthyPugLifeExpectancy();
+                this.deathTimerId = setInterval(this.startDeathTimer, 1000); // Activate death timer and save assigned ID.
+                console.log(`Starting new timer for ${name}, assigning deathTimerId:`, this.deathTimerId);
+                console.log(`${name} countdown to death: ${this.pugLifeRemainingInSeconds}`);
+            }
+        }
+        else {  // Otherwise, pug is healthy.
+            if (this.deathTimerId !== null) { // If pug has just returned to health after a prior unhealthy state, cancel the death timer.
+                console.log(`${name} is now healthy! Stop the timer with deathTimerId:`, this.deathTimerId);
+                this.stopDeathTimer();
+            }
         }
     }
 
@@ -50,37 +79,23 @@ class PugCard extends Component {
         }
     }
 
-    /**
-     * Every time this component renders it will have a new set of props. We want to check to see if the pug is healthy
-     * at this point because if not, we need to activate a 'death timer' to countdown to his or her demise. Once caretaker
-     * takes appropriate action to feed or walk pug to restore its health, we can cancel the timer.
-     */
+    componentDidMount() {
+        console.log('Running componentDidMount()...');
+        this.checkPugHealthStatus();
+    }
+
     componentDidUpdate() {
-        const { name, isUnhealthy } = this.props;    // Destructure incoming props parameter.
         console.log('Running componentDidUpdate()...');
-        if (isUnhealthy) {
-            if (this.deathTimerId === null) { // Set death timer if this is the first time pug has crossed threshold into unhealthy state.
-                this.resetUnhealthyPugLifeExpectancy();
-                this.deathTimerId = setInterval(this.deathTimer, 1000); // Activate death timer and save assigned ID.
-                console.log(`Starting new timer for ${name}, assigning deathTimerId:`, this.deathTimerId);
-                console.log(`${name} countdown to death: ${this.pugLifeRemainingInSeconds}`);
-            }
-        }
-        else {  // Otherwise, pug is healthy.
-            if (this.deathTimerId !== null) { // If pug has just returned to health after a prior unhealthy state..., cancel the death timer.
-                console.log(`${name} is now healthy! Stop the timer with deathTimerId:`, this.deathTimerId);
-                clearInterval(this.deathTimerId);       // Cancel death timer.
-                this.deathTimerId = null;               // Clear timer ID for possible unhealthy status in future.
-            }
-        }
+        this.checkPugHealthStatus();
     }
 
     /**
-     * If caretaker leaves the /pugs screen to add a new pug or to return to the landing page, this component will be destroyed
+     * If caretaker leaves the pugs screen to add a new pug or to return to the landing page, this component will be destroyed
      * so we need to cancel the death timer if it is running or else this would affect performance as user continued to play the
-     * game as the timer would never stop.
+     * game with a never ending timer.
      */
     componentWillUnmount() {
+        console.log(`${this.props.name} is leaving pugs screen. Stopping timer, if one is in effect, in componentWillUnmount():`, this.deathTimerId);
         clearInterval(this.deathTimerId);
         this.deathTimerId = null;
     }
