@@ -1,9 +1,29 @@
-// Import Express package and Body Parser Express middleware.
+// Import Express package along with Body Parser, Express HTTP Proxy, and CORS middleware.
 const express = require('express');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
+const proxy = require('express-http-proxy');
+const cors = require("cors");
 
 // Start Express server.
 const app = express();
+
+// app.use() -- Define Express middleware to handle some work before passing to route handlers.
+
+app.use(bodyParser.json());
+
+app.use(
+    cors({
+        origin: 'localhost:3000',
+        credentials: false
+    })
+);
+
+app.use('/', proxy('pugme.herokuapp.com'));
+
+// app.get(), app.post(), etc. -- Invoke route handlers.
+
+// Import exported route handler function from pugRoutes.js and invoke it passing app object.
+require('./routes/pugRoutes')(app);
 
 // Help Express in production locate routes in the front-end React client app when route handlers are not defined for them in the Express app.
 if (process.env.NODE_ENV === 'production') {
