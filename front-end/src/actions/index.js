@@ -3,7 +3,7 @@ import { START_GAME, FETCH_PUGS, FETCH_IMAGE, PUG_CARE } from './actionTypes';
 import { ADD_PUG, REMOVE_PUG, COUNT_DEAD_PUGS } from './actionTypes';
 import originalPugs from '../pugs.json';
 
-const imageUrl = (window.location.href.includes('localhost:3000')) ? '/random' : 'http://pugme.herokuapp.com/random';
+const imageUrl = (window.location.href.includes('localhost:3000')) ? '/random' : 'https://pugme.herokuapp.com/random';
 
 // Sets Boolean flag after initial game start to prevent PugList from reloading original set of pugs, wiping out current state of pugs.
 export const startGame = () => dispatch => {
