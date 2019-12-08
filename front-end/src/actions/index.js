@@ -24,7 +24,7 @@ export const startGame = () => dispatch => {
 export const fetchPugs = () => async dispatch => {
     // Loop through each of the pugs and retrieve an image URL that is then appended to url property of each pug.
     const promisesArray = await originalPugs.map(async pug => {
-        const response = await axios.get('/proxy/random');
+        const response = await axios.get(imageUrI);
         console.log(response);
         pug.url = response.data.pug;
         return pug;
