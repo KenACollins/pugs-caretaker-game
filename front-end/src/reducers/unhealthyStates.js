@@ -13,10 +13,10 @@ export const NEGLECTED_TEMPERAMENT = 'Neglected';
 // Numbers below are in seconds.
 // o Countdown total is complete amount of time pug can remain unhealthy before death ensues.
 // o Countdown threshold is when we start notifying caretaker with a visible countdown timer on-screen.
-//   When pug initially crosses over into an unhealthy status, we give caretaker time to take action.
+//   [When pug initially crosses over into an unhealthy status, we give caretaker time to take action.]
 export const UNDERWEIGHT_COUNTDOWN_TOTAL = 20;
 export const UNDERWEIGHT_COUNTDOWN_THRESHOLD = 10;
-export const OVERWEIGHT_COUNTDOWN_TOTAL = 60;
+export const OVERWEIGHT_COUNTDOWN_TOTAL = 25;
 export const OVERWEIGHT_COUNTDOWN_THRESHOLD = 10;
-export const NEGLECTED_COUNTDOWN_TOTAL = 180;
+export const NEGLECTED_COUNTDOWN_TOTAL = 40;
 export const NEGLECTED_COUNTDOWN_THRESHOLD = 10;

@@ -29,6 +29,17 @@ class PugCard extends Component {
         return '';
     }
 
+    /**
+     * Only when the fading out animation has concluded for 'back to top' button do we restore the "display: none" setting.
+     * @param {SyntheticEvent} event - React event wrapper for cross-browser compatibility, not to be confused with DOM event handling 
+     */
+    onAnimationEnd = (event) => {
+        if (event.animationName === 'fadeOutKF') {
+            this.props.removePug(this.props.id);    // Call removePug() action creator to kick off state.pugs change for dead pug.
+            this.props.countDeadPugs();             // Increment running count of pugs that have died under caretaker's watch.
+        }
+    }
+
     startDeathTimer = () => {
         this.pugLifeRemainingInSeconds--;
         console.log(`${this.props.name} countdown to death: ${this.pugLifeRemainingInSeconds}`);
@@ -36,12 +47,10 @@ class PugCard extends Component {
             this.setState({ secondsTilDeath: this.pugLifeRemainingInSeconds });
         }
         if (this.pugLifeRemainingInSeconds === 0) { // Cancel timer, fade out dead pug, and remove it from state.
-            // alert(`Sadly, ${this.props.name} has died.`);
             console.log(`Time is up. ${this.props.name} has died with deathTimerId:`, this.deathTimerId);
             this.stopDeathTimer();
             this.cardRef.current.classList.add('fadeOut');
-            this.props.removePug(this.props.id);    // Call removePug() action creator to kick off state.pugs change for dead pug.
-            this.props.countDeadPugs();
+            // We wait for the nice fade out effect to finish before removing pug from state in the onAnimationEnd() method.
         }
     }
 
@@ -92,12 +101,10 @@ class PugCard extends Component {
     }
 
     componentDidMount() {
-        console.log('Running componentDidMount()...');
         this.checkPugHealthStatus();
     }
 
     componentDidUpdate() {
-        console.log('Running componentDidUpdate()...');
         this.checkPugHealthStatus();
     }
 
@@ -117,7 +124,7 @@ class PugCard extends Component {
 
         return (
             <>
-                <div className="card" ref={this.cardRef}>
+                <div className="card" ref={this.cardRef} onAnimationEnd={this.onAnimationEnd}>
                     <div className="card-image">
                         <img src={url} alt={`${temperament[0]} pug`} />
                     </div>

@@ -12,7 +12,7 @@ import deadPugsReducer from './deadPugsReducer';
 export default combineReducers({
     form: reduxForm,
     pugs: pugsReducer,
-    image: imageReducer,
+    lastRetrievedPugImageUrl: imageReducer,
     loadOriginalPugsList: gameReducer,
     deadPugsCount: deadPugsReducer
 });
