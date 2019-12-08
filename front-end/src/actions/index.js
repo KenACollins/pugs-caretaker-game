@@ -1,4 +1,5 @@
 import axios from 'axios';
+import unsplash from '../api/unsplash';
 import { START_GAME, FETCH_PUGS, FETCH_IMAGE, PUG_CARE } from './actionTypes';
 import { ADD_PUG, REMOVE_PUG, COUNT_DEAD_PUGS } from './actionTypes';
 import originalPugs from '../pugs.json';
@@ -22,15 +23,21 @@ export const startGame = () => dispatch => {
 
 // Loads initial set of pugs from data store and obtains an image for each one. 
 export const fetchPugs = () => async dispatch => {
+
     // Loop through each of the pugs and retrieve an image URL that is then appended to url property of each pug.
     const promisesArray = await originalPugs.map(async pug => {
-        const response = await axios.get(imageUrI);
-        console.log(response);
-        pug.url = response.data.pug;
+        // const response = await axios.get('/random');
+        const response = await unsplash.get('/photos/random', {
+            params: { query: 'pugs' }
+        });
+        //console.log(response.data.urls.small);
+        //pug.url = response.data.pug;
+        pug.url = response.data.urls.small;
         return pug;
     });
     const pugsWithImages = await Promise.all(promisesArray);
     dispatch({ type: FETCH_PUGS, payload: pugsWithImages });
+    //dispatch({ type: FETCH_PUGS, payload: originalPugs });
 };
 
 // Retrieves an image of a pug not associated with any displayed on-screen.

@@ -5,9 +5,9 @@ module.exports = app => {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         console.log('res', res);
-        //next();
+        next();
         //res.send('Thanks!');
         //res.send();
-        return res;
+        //return res;
     });
 }
