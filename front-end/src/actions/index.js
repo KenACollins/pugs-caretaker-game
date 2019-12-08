@@ -3,6 +3,8 @@ import { START_GAME, FETCH_PUGS, FETCH_IMAGE, PUG_CARE } from './actionTypes';
 import { ADD_PUG, REMOVE_PUG, COUNT_DEAD_PUGS } from './actionTypes';
 import originalPugs from '../pugs.json';
 
+const imageUrl = (window.location.href.includes('localhost:3000')) ? '/random' : 'http://pugme.herokuapp.com/random';
+
 // Sets Boolean flag after initial game start to prevent PugList from reloading original set of pugs, wiping out current state of pugs.
 export const startGame = () => dispatch => {
     dispatch({ type: START_GAME, payload: false });
@@ -22,7 +24,7 @@ export const startGame = () => dispatch => {
 export const fetchPugs = () => async dispatch => {
     // Loop through each of the pugs and retrieve an image URL that is then appended to url property of each pug.
     const promisesArray = await originalPugs.map(async pug => {
-        const response = await axios.get('/random');
+        const response = await axios.get(imageUrl);
         pug.url = response.data.pug;
         return pug;
     });
@@ -37,7 +39,7 @@ export const fetchPugs = () => async dispatch => {
 // invoke this action creator in the PugAddForm and PugFormEdit components managed by 
 // Redux Form.
 export const fetchImage = () => async dispatch => {
-    const response = await axios.get('/random');
+    const response = await axios.get(imageUrl);
     dispatch({ type: FETCH_IMAGE, payload: response.data.pug });
 }
 
@@ -48,7 +50,7 @@ export const servicePug = (pugId = null, weightChange = 0) => dispatch => {
 
 // Handles new pug form submission and obtains an image for it.
 export const submitPugRequest = (formValues, history) => async dispatch => {
-    const response = await axios.get('/random');
+    const response = await axios.get(imageUrl);
     dispatch({ type: ADD_PUG, payload: {...formValues, url: response.data.pug } });
     history.push('/pugs');   // React Router way to redirect user after form submission.
 };
