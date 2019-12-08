@@ -18,7 +18,7 @@ app.use(
     })
 );
 
-app.use('/', proxy('pugme.herokuapp.com'));
+app.use('/proxy', proxy('pugme.herokuapp.com'));
 
 // app.get(), app.post(), etc. -- Invoke route handlers.
 

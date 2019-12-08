@@ -3,7 +3,7 @@ import { START_GAME, FETCH_PUGS, FETCH_IMAGE, PUG_CARE } from './actionTypes';
 import { ADD_PUG, REMOVE_PUG, COUNT_DEAD_PUGS } from './actionTypes';
 import originalPugs from '../pugs.json';
 
-const imageUrI = (window.location.href.includes('localhost:3000')) ? '/random' : 'https://localhost:5000/random';
+const imageUrI = (window.location.href.includes('localhost:30')) ? '/random' : '/proxy/random';
 
 // Sets Boolean flag after initial game start to prevent PugList from reloading original set of pugs, wiping out current state of pugs.
 export const startGame = () => dispatch => {
@@ -24,7 +24,7 @@ export const startGame = () => dispatch => {
 export const fetchPugs = () => async dispatch => {
     // Loop through each of the pugs and retrieve an image URL that is then appended to url property of each pug.
     const promisesArray = await originalPugs.map(async pug => {
-        const response = await axios.get('/random');
+        const response = await axios.get(imageUrI);
         console.log(response);
         pug.url = response.data.pug;
         return pug;
