@@ -41,7 +41,7 @@ I coded the solution with React and Redux. The source code is organized under th
 
 * **actions** - Action creators used by Redux.
 * **api** - Unsplash third party API setup.
-* **components** - React components. The 'form' subfolder contains components related to the 'add pug' form.
+* **components** - React components. The **form** subfolder contains components related to the 'add pug' form.
 * **config** - API key setup distinguishing development from production. I hide the development API key and do NOT commit that dev.js file to Git, but the production API prod.js file is okay to push to Git because it merely references an environment variable.
 * **reducers** - Reducers used by Redux.
 
