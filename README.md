@@ -78,6 +78,11 @@ A pug within the final ten seconds of life is identified with a visual countdown
 ### Dead Pugs Fade Out
 When an unhealthy pug has reached its point of death, rather than disappear abruptly, it fades out before leaving the screen.
 
+## Dead Pugs Running Count
+If you step away from the computer or device on which you are playing this game and return a brief while later, you might be perplexed to see a blank screen. Remember, that even normally active pugs in the safe weight range can die from neglect. 
+
+To confirm this situation has occurred, pugs that have died in your care are tracked. If all of them have died, rather than displaying an empty screen, a message informing you of how many pugs have died in your care will be displayed with a suggestion that maybe pug adoption is not your best choice of activity!
+
 ### Responsive Design
 It is a responsive design that displays four pugs on medium to large screens and reduces to three columns, then two, and finally one long vertical column on the smallest devices such as cell phones. The pugs are intentionally laid out in a grid such that a newly added fifth pug will be positioned in the second row on the left below the first pug in the first row *rather than centered all by itself in the second row* (would not look right).
 
