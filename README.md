@@ -6,9 +6,9 @@ It is a responsive design that displays the pug cards (a pug card is a pug image
 As the browser screen size shrinks on smaller devices, the pugs rearrange themselves -- from four across to three, two, and finally settle in one vertical column on mobile devices.
 
 ## Try It Out!
-Launch https://pure-everglades-60258.herokuapp.com/ in your web browser. Please allow a minute or two. I am hosting it in a free tier cloud service and the app is "put to sleep" when not in active use. 
+Launch https://pure-everglades-60258.herokuapp.com/ ** in your web browser. Please allow a minute or two. I am hosting it in a free tier cloud service and the app is "put to sleep" when not in active use. 
 
-In case you are unfamiliar with Heroku, they assign ridiculous subdomains to each project when you are using a free account as I am. This is where "pure-everglades-60258" comes from.
+**In case you are unfamiliar with Heroku, they assign ridiculous subdomains to each project when you are using a free account as I am. This is where "pure-everglades-60258" comes from.
 
 ## How to Play
 
@@ -37,16 +37,16 @@ Any pugs that were unhealthy at the time you left to fill out the form will be r
 
 ## Design
 
-I coded the solution with React and Redux. The source code is organized under the front-end/src folder except for package.json and contains the following folders:
+I coded the solution with React and Redux. The source code is organized under the front-end/src folder except for utilities (package.json, package-lock.json, .gitignore, and *this* README.md file) and contains the following folders:
 
-* actions - Action creators used by Redux.
-* api - Unsplash third party API setup.
-* components - React components. The 'form' subfolder contains components related to the 'add pug' form.
-* reducers - Reducers used by Redux.
+* **actions** - Action creators used by Redux.
+* **api** - Unsplash third party API setup.
+* **components** - React components. The 'form' subfolder contains components related to the 'add pug' form.
+* **reducers** - Reducers used by Redux.
 
 There are also the following files at this level:
-* index.js - Main starting point of the React app which sets up the data layer control establishing Redux and App as the top level component for rendering.
-* pugs.json - The initial set of data for four pugs.
+* **index.js** - Main starting point of the React app which sets up the data layer control establishing Redux and App as the top level component for rendering.
+* **pugs.json** - The initial set of data for four pugs.
 
 ## Third Party Tools
 
