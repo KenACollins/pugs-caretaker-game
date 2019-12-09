@@ -1,0 +1,78 @@
+# Pugs Caretaker Game
+Pugs caretaker game is a web application where you are supplied an initial set of four pugs (a breed of dog) that you need to feed and walk regularly or they will become unhealthy and die. You can also add more pugs to manage. It accesses Unsplash API through REST calls to retrieve random images of pugs.
+
+It is a responsive design that displays the pug cards (a pug card is a pug image accompanied by some metadata and feed/walk buttons) laid out in a grid, initially four across. As you add more pugs, they line up starting in the second row, from the left, directly under the pugs that precede them.  
+
+As the browser screen size shrinks on smaller devices, the pugs rearrange themselves -- from four across to three, two, and finally settle in one vertical column on mobile devices.
+
+## Try It Out!
+Launch https://pure-everglades-60258.herokuapp.com/ in your web browser. Please allow a minute or two. I am hosting it in a free tier cloud service and the app is "put to sleep" when not in active use. 
+
+In case you are unfamiliar with Heroku, they assign ridiculous subdomains to each project when you are using a free account as I am. This is where "pure-everglades-60258" comes from.
+
+### How to Play
+
+#### First Steps
+You will initially be greeted at the landing page. Click the "Let's Go" link to begin the game. 
+
+Four pug cards will be loaded, each one including a photo, name, temperament, weight (in the 13-20 pound range), along with two buttons labeled "FEED ME" and "WALK ME". That is where YOU come in. Each time you feed the pug, it gains a half pound. Each time you walk the pug, it loses a quarter pound. Be careful about playing favorites because a pug can become unhealthy and die from neglect.
+
+#### Unhealthy Pugs
+The safe weight range for a pug is between 10-20 pounds inclusive. There are three situations that cause a pug to become unhealthy (and which trigger a "countdown to death" timer):
+* Pug's weight exceeds 20 pounds. The pug's temperament becomes "Sedentary" and at some point the pug may die from lack of health, spending its days just watching TV on the couch and surfing the web, unless you start walking the pug to bring its weight down to 20 pounds or below.
+* Pug's weight drops below 10 pounds. The pug's temperament becomes "Malnourished" and the pug will perish due to malnutrition if not addressed within a short period of time by feeding the pug.
+* Pug's weight is in the safe range and it is normally active, but it hasn't been walked or fed in quite awhile. Its temperament becomes "Neglected" and the pug's days are numbered if not immediately taken for a walk or given a meal.
+
+#### Don't Let Your Pugs Die!
+When a pug initially becomes unhealthy, its temperament changes to one of the three values specified above -- Sedentary, Malnourished, or Neglected -- and the styling of its temperament is depicted with red text and a frowning face icon. You, as caretaker, will see this change in pug status and have time to act. If you don't you will be notified when the countdown-to-death timer has reached the final seconds: "dead in 10, 9, 8, ..." If you still do not feed or walk the pug (as required to restore pug's health) and the countdown reaches zero, the pug will fade out and disappear permanently (well, by permanently, I just mean for the duration of the current game).
+
+#### Adopt More Pugs!
+While the game always starts you off with the same set of four initial pugs (though their images change with each new game), you have the option to add more. Just click the round purple + icon that is floating in the bottom right corner of your viewport.
+
+This will lead you to a form where you can fill out the criteria for the pug you are seeking to adopt. You want to give your new pug a name, temperament, and weight. Click Next and you will arrive at a screen to review your data entries. Click the BACK button to make changes or "ADD PUG" to submit your request. The system will automatically match you up with just the right pug at your desired weight and temperament who most resembles the name you have assigned.
+
+You will be returned to the pugs screen where the newest pug will be added along with the earlier pugs that were still alive at the time you went off to fill out the form.
+
+Any pugs that were unhealthy at the time you left to fill out the form will be rejuvinated to see a new pug added to the mix and this will result in resetting their countdown timers to start from the beginning.
+
+## Design
+
+I coded the solution with React and Redux. The source code is organized under the front-end/src folder except for package.json and contains the following folders:
+
+* actions - Action creators used by Redux.
+* api - Unsplash third party API setup.
+* components - React components. The 'form' subfolder contains components related to the 'add pug' form.
+* reducers - Reducers used by Redux.
+
+There are also the following files at this level:
+* index.js - Main starting point of the React app which sets up the data layer control establishing Redux and App as the top level component for rendering.
+* pugs.json - The initial set of data for four pugs.
+
+## Third Party Tools
+
+### Unsplash
+I am retrieving the random pug images using a REST GET API provided by Unsplash.com.
+
+### Axios
+
+I opted to use axios for Ajax calls instead of fetch() since I like the way I can set HTTP request headers in axios.
+
+### Materialize + Coolors
+
+I am an engineer (electrical engineer at heart), not a UX/UI designer, so when I need to whip up a proof of concept with a really nice front-end interface, I rely on material designs from Materialize, https://materializecss.com/, and the color palettes of Coolors, https://coolors.co/.
+
+## Assumptions
+The specifications are unclear on some points. Below are the assumptions I made.
+
+* The API to get random pug images, http://pugme.herokuapp.com/random, is just a suggestion and I am free to use any API that can accomplish the same thing.
+* There is no lockout period after "FEED ME" and "WALK ME" buttons are clicked to settle the pug at a certain weight. Therefore, either button can be pressed repeatedly to alter the pug's weight in dramatic ways, especially as needed quickly if the pug is in the final seconds before death.
+* The pug's original on-screen description should change to "Malnourished" when its weight drops below 10 pounds.
+* The pug's original on-screen description should change to "Neglected" when it, although in the safe weight range, has been ignored for some time.
+* Malnourished pugs (under 10 pounds) can be restored to perfect health and temperament if fed enough to at least reach, if not exceed, 10 pounds.
+* Sedentary pugs (over 20 pounds) can be restored to perfect health and temperament if walked enough to drop to, or below, 20 pounds.
+* The amount of time it takes for an unhealthy pug to die depends on the type of health issue. A malnourished pug will die faster than a well fed sedentary pug. Extra Credit: A pug in the normal 10-20 pound range will have to be neglected for an extended period of time before it becomes deemed unhealthy and counts down to its death.
+* Extra Credit Edge case 1: If a pug is precisely on the low weight boundary (10 pounds) and becomes unhealthy due to neglect, the longer neglect countdown timer will ensue. If the pug is then walked, its weight will drop below 10 pounds and it will become unhealthy for a different reason - malnutrition. However, the longer neglect timer countdown remains in effect. We won't track historical states of unhealthiness just so we can cause the pug to die sooner.
+* Extra Credit Edge case 2: If a pug is precisely on the high weight boundary (20 pounds) and becomes unhealthy due to neglect, the longer neglect countdown timer will ensue. If the pug is then fed, its weight will increase above 20 pounds and it will become unhealthy for a different reason - sedentary. However, the longer neglect timer countdown remains in effect. We won't track historical states of unhealthiness just so we can cause the pug to die sooner.
+* When a countdown-to-death timer is in effect for an unhealthy pug, that timer is cancelled if the caretaker leaves the pugs screen and that timer is restarted from the beginning when caretaker returns to pugs screen. The presumption is that all pugs are rejuvinated to see the caretaker's return and pep up even more if there is a new pug added to the mix. The unhealthy pugs get a reset, a new lease on life, but it will be short-lived if the caretaker continues to neglect them. [If I did have to resume the timer where it left off, I would store it in pugs state in componentWillUnmount() for the given pug ID, then use that remaining time in componentDidMount() instead of the longer total countdown time.]
+
+
