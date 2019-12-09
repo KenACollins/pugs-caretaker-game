@@ -47,7 +47,7 @@ I coded the solution with React and Redux. The source code is organized under th
 
 There are also the following files at this level:
 
-* **index.js** - Main starting point of the React app which sets up the data layer control establishing Redux and App as the top level component for rendering.
+* **index.js** - Main starting point of the React app which sets up the data layer control establishing Redux for state management and App as the top level component for rendering.
 * **pugs.json** - The initial set of data for four pugs.
 
 ## Third Party Tools
@@ -61,7 +61,7 @@ I opted to use axios for Ajax calls instead of fetch() since I like the way I ca
 
 ### Materialize + Coolors
 
-I am an engineer (electrical engineer at heart), not a UX/UI designer, so when I need to whip up a proof of concept with a really nice front-end interface, I rely on material designs from Materialize, https://materializecss.com/, and complementary color palettes of Coolors, https://coolors.co/.
+I am an engineer (electrical engineer at heart), not a UX/UI designer, so when I need to whip up a proof of concept with a really nice front-end interface, I rely on material designs from Materialize, https://materializecss.com/, and complementary color palettes from Coolors, https://coolors.co/.
 
 ## Features
 Here is a recap of the unique features I implemented:
@@ -85,7 +85,9 @@ If you step away from the computer or device on which you are playing this game 
 To confirm this situation has occurred, pugs that have died in your care are tracked. If all of them have died, rather than displaying an empty screen, a message informing you of how many pugs have died in your care will be displayed along with a suggestion that maybe pug adoption is not your best choice of activity!
 
 ### Responsive Design
-It is a responsive design that displays four pugs on medium to large screens and reduces to three columns, then two, and finally one long vertical column on the smallest devices such as cell phones. The pugs are intentionally laid out in a grid such that a newly added fifth pug will be positioned in the second row on the left below the first pug in the first row *rather than centered all by itself in the second row* (would not look right).
+It is a responsive design that displays four pugs on medium to large screens and reduces to three columns, then two, and finally one long vertical column on the smallest devices such as cell phones. 
+
+The pugs are intentionally laid out in a grid such that a newly added fifth pug will be positioned in the second row on the left below the first pug in the first row *rather than centered all by itself in the second row* (would not look right).
 
 ## Assumptions
 The specifications are unclear on some points. Below are the assumptions I made.
@@ -97,11 +99,13 @@ The specifications are unclear on some points. Below are the assumptions I made.
 * Malnourished pugs (under 10 pounds) can be restored to perfect health and temperament if fed enough to at least reach, if not exceed, 10 pounds.
 * Sedentary pugs (over 20 pounds) can be restored to perfect health and temperament if walked enough to drop to, or below, 20 pounds.
 * The amount of time it takes for an unhealthy pug to die depends on the type of health issue. A malnourished pug will die faster than a well fed sedentary pug. Extra Credit: A pug in the normal 10-20 pound range will have to be neglected for an extended period of time before it becomes deemed unhealthy and counts down to its death.
-* Extra Credit Edge case 1: If a pug is precisely on the low weight boundary (10 pounds) and becomes unhealthy due to neglect, the longer neglect countdown timer will ensue. If the pug is then walked, its weight will drop below 10 pounds and it will become unhealthy for a different reason - malnutrition. However, the longer neglect timer countdown remains in effect. We won't track historical states of unhealthiness just so we can cause the pug to die sooner.
-* Extra Credit Edge case 2: If a pug is precisely on the high weight boundary (20 pounds) and becomes unhealthy due to neglect, the longer neglect countdown timer will ensue. If the pug is then fed, its weight will increase above 20 pounds and it will become unhealthy for a different reason - sedentary. However, the longer neglect timer countdown remains in effect. We won't track historical states of unhealthiness just so we can cause the pug to die sooner.
-* When a countdown-to-death timer is in effect for an unhealthy pug, that timer is cancelled if the caretaker leaves the pugs screen and that timer is restarted from the beginning when caretaker returns to pugs screen. The presumption is that all pugs are rejuvinated to see the caretaker's return and pep up even more if there is a new pug added to the mix. The unhealthy pugs get a reset, a new lease on life, but it will be short-lived if the caretaker continues to neglect them. [If I did have to resume the timer where it left off, I would store it in pugs state in componentWillUnmount() for the given pug ID, then use that remaining time in componentDidMount() instead of the longer total countdown time.]
+* Extra Credit Edge Case 1: If a pug is precisely on the low weight boundary (10 pounds) and becomes unhealthy due to neglect, the longer neglect countdown timer will ensue. If the pug is then walked, its weight will drop below 10 pounds and it will become unhealthy for a different reason - malnutrition. However, the longer neglect timer countdown remains in effect. We won't track historical states of unhealthiness just so we can cause the pug to die sooner.
+* Extra Credit Edge Case 2: If a pug is precisely on the high weight boundary (20 pounds) and becomes unhealthy due to neglect, the longer neglect countdown timer will ensue. If the pug is then fed, its weight will increase above 20 pounds and it will become unhealthy for a different reason - sedentary. However, the longer neglect timer countdown remains in effect. We won't track historical states of unhealthiness just so we can cause the pug to die sooner.
+* When a countdown-to-death timer is in effect for an unhealthy pug, that timer is cancelled if the caretaker leaves** the pugs screen and that timer is restarted from the beginning when caretaker returns to pugs screen. The presumption is that all pugs are rejuvinated to see the caretaker's return and pep up even more if there is a new pug added to the mix. The unhealthy pugs get a reset, a new lease on life, but it will be short-lived if the caretaker continues to neglect them. [If I did have to resume the timer where it left off, I would store it in pugs state in componentWillUnmount() for the given pug ID, then use that remaining time in componentDidMount() instead of the longer total countdown time.]
+
+**By "leave" I do not mean stepping away from the game momentarily. Instead, I just mean leaving the /pugs route by either clicking the Pugs! logo in header to return to Landing page or by clicking the floating purple + icon to go to the 'add pug' form.
 
 ## One More Thing
-I intentionally left console logging active so that a person reviewing this application could see how the countdown timers work, what their initial values are (based on the circumstances), how they are reset if a pug is cared for, and how they provide a window of time for the caretaker to take action before being alerted to the final 10 seconds. Just launch your web browser's development tools and go to the Console tab to see these messages.
+I intentionally left console logging active so that a person reviewing this application could see how the countdown timers work, what their initial values are (based on the circumstances), how they are reset if a pug is cared for, and how they provide a window of time for the caretaker to take action before being alerted to the final 10 seconds. Just launch your web browser's development tools and go to the **Console** tab to see these messages.
 
 
