@@ -19,9 +19,9 @@ Four pug cards will be loaded, each one including a photo, name, temperament, we
 
 ### Unhealthy Pugs
 The safe weight range for a pug is between 10-20 pounds inclusive. There are three situations that cause a pug to become unhealthy (and which trigger a "countdown to death" timer):
-* Pug's weight exceeds 20 pounds. The pug's temperament becomes "Sedentary" and at some point the pug may die from lack of health, spending its days just watching TV on the couch and surfing the web, unless you start walking the pug to bring its weight down to 20 pounds or below.
-* Pug's weight drops below 10 pounds. The pug's temperament becomes "Malnourished" and the pug will perish due to malnutrition if not addressed within a short period of time by feeding the pug.
-* Pug's weight is in the safe range and it is normally active, but it hasn't been walked or fed in quite awhile. Its temperament becomes "Neglected" and the pug's days are numbered if not immediately taken for a walk or given a meal.
+* **Pug's weight exceeds 20 pounds.** The pug's temperament becomes "Sedentary" and at some point the pug may die from lack of health, spending its days just watching TV on the couch and surfing the web, unless you start walking the pug to bring its weight down to 20 pounds or below.
+* **Pug's weight drops below 10 pounds.** The pug's temperament becomes "Malnourished" and the pug will perish due to malnutrition if not addressed within a short period of time by feeding the pug.
+* **Pug's weight is in the safe range and it is normally active, but it hasn't been walked or fed in quite awhile.** Its temperament becomes "Neglected" and the pug's days are numbered if not immediately taken for a walk or given a meal.
 
 ### Don't Let Your Pugs Die!
 When a pug initially becomes unhealthy, its temperament changes to one of the three values specified above -- Sedentary, Malnourished, or Neglected -- and the styling of its temperament is depicted with red text and a frowning face icon. You, as caretaker, will see this change in pug status and have time to act. If you don't you will be notified when the countdown-to-death timer has reached the final seconds: "dead in 10, 9, 8, ..." If you still do not feed or walk the pug (as required to restore pug's health) and the countdown reaches zero, the pug will fade out and disappear permanently (well, by permanently, I just mean for the duration of the current game).
@@ -37,7 +37,7 @@ Any pugs that were unhealthy at the time you left to fill out the form will be r
 
 ## Design
 
-I coded the solution with React and Redux. The source code is organized under the front-end/src folder except for utilities (package.json, package-lock.json, .gitignore, and *this* README.md file) and contains the following folders:
+I coded the solution with React and Redux. The source code is organized under the **front-end/src** folder except for utilities (package.json, package-lock.json, .gitignore, and *this* README.md file) and contains the following folders:
 
 * **actions** - Action creators used by Redux.
 * **api** - Unsplash third party API setup.
@@ -59,13 +59,29 @@ I opted to use axios for Ajax calls instead of fetch() since I like the way I ca
 
 ### Materialize + Coolors
 
-I am an engineer (electrical engineer at heart), not a UX/UI designer, so when I need to whip up a proof of concept with a really nice front-end interface, I rely on material designs from Materialize, https://materializecss.com/, and the color palettes of Coolors, https://coolors.co/.
+I am an engineer (electrical engineer at heart), not a UX/UI designer, so when I need to whip up a proof of concept with a really nice front-end interface, I rely on material designs from Materialize, https://materializecss.com/, and complementary color palettes of Coolors, https://coolors.co/.
+
+## Features
+Here is a recap of the unique features I implemented:
+
+### Configurable 
+The web app is quite configurable with files kept separate from code for functionality subject to change:
+
+* Countdown timers based on unhealthy state: **front-end/src/reducers/unhealthyStates.js**
+* Action creator types: **front-end/src/actions/actionTypes.js**
+* Form fields: **front-end/src/components/form/formFields.js**
+
+### Dying Pugs Countdown
+A pug within the final ten seconds of life is identified with a visual countdown "dead in 10, 9, 8, ... 0".
+
+### Dead Pugs Fade Out
+When an unhealthy pug has reached its point of death, rather than disappear abruptly, it fades out before leaving the screen.
 
 ## Assumptions
 The specifications are unclear on some points. Below are the assumptions I made.
 
 * The API to get random pug images, http://pugme.herokuapp.com/random, is just a suggestion and I am free to use any API that can accomplish the same thing.
-* There is no lockout period after "FEED ME" and "WALK ME" buttons are clicked to settle the pug at a certain weight. Therefore, either button can be pressed repeatedly to alter the pug's weight in dramatic ways, especially as needed quickly if the pug is in the final seconds before death.
+* There is no lockout period after FEED ME and WALK ME buttons are clicked to settle the pug at a certain weight. Therefore, either button can be pressed repeatedly to alter the pug's weight in dramatic ways, especially as needed quickly if the pug is in the final seconds before death.
 * The pug's original on-screen description should change to "Malnourished" when its weight drops below 10 pounds.
 * The pug's original on-screen description should change to "Neglected" when it, although in the safe weight range, has been ignored for some time.
 * Malnourished pugs (under 10 pounds) can be restored to perfect health and temperament if fed enough to at least reach, if not exceed, 10 pounds.
