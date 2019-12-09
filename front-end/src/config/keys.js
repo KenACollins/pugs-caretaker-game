@@ -5,6 +5,7 @@ if (process.env.NODE_ENV === 'production') {
     module.exports = require('./prod');
 }
 else {
+    console.log('****************** Falling to dev branch.')
     // We are in development, return dev set of keys.
     module.exports = require('./dev');
 }
