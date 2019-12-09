@@ -41,3 +41,5 @@ if (process.env.NODE_ENV === 'production') {
 // Express tells Node what port to listen on.  We get it dynamically from Heroku if running in production.
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
+
+console.log('******************RUNNING IN: ' + process.env.NODE_ENV);
