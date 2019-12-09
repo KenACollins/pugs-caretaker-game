@@ -18,5 +18,8 @@ export const UNDERWEIGHT_COUNTDOWN_TOTAL = 20;
 export const UNDERWEIGHT_COUNTDOWN_THRESHOLD = 10;
 export const OVERWEIGHT_COUNTDOWN_TOTAL = 25;
 export const OVERWEIGHT_COUNTDOWN_THRESHOLD = 10;
-export const NEGLECTED_COUNTDOWN_TOTAL = 40;
+export const NEGLECTED_COUNTDOWN_TOTAL = 30;
 export const NEGLECTED_COUNTDOWN_THRESHOLD = 10;
+
+// In seconds, timer for measuring pug's active existence before neglect sets in.
+export const ACTIVE_COUNTDOWN_TOTAL = 30;

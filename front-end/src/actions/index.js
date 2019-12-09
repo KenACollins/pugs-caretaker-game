@@ -1,11 +1,12 @@
 import unsplash from '../api/unsplash';
-import { START_GAME, FETCH_PUGS, FETCH_IMAGE, PUG_CARE } from './actionTypes';
+import { START_GAME, FETCH_PUGS, FETCH_IMAGE, PUG_CARE, PUG_NEGLECTED } from './actionTypes';
 import { ADD_PUG, REMOVE_PUG, COUNT_DEAD_PUGS } from './actionTypes';
 import originalPugs from '../pugs.json';
 
 // Calls a third party API to retrieve a random image of a pug and store its URL in state.lastRetrievedPugImageUrl property.
 export const fetchImage = () => async dispatch => {
     const response = await unsplash.get('/photos/random', { params: { query: 'pugs' } });
+    console.log('fetch image response', response);
     dispatch({ type: FETCH_IMAGE, payload: response.data.urls.small });
 }
 
@@ -29,6 +30,11 @@ export const startGame = () => dispatch => {
 // Processes 'Feed Me' and 'Walk Me' button clicks.
 export const servicePug = (pugId = null, weightChange = 0) => dispatch => {
     dispatch({ type: PUG_CARE, payload: { pugId, weightChange } });
+};
+
+// Processes pug becoming unhealthy due to neglect.
+export const pugNeglected = (pugId = null) => dispatch => {
+    dispatch({ type: PUG_NEGLECTED, payload: { pugId } });
 };
 
 // Handles new pug form submission and obtains an image for it.

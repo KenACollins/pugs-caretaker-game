@@ -1,9 +1,10 @@
 // PugFormReview displays the previously entered form data in read-only mode for user's review before final submission which occurs below.
 import React from 'react';
 import { connect } from 'react-redux';
-import formFields from './formFields';
-import { withRouter } from "react-router";
+import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { submitPugRequest } from '../../actions';
+import formFields from './formFields';
 
 /**
  * Props object is destructured to extract what we need as described below.
@@ -28,17 +29,21 @@ const PugFormReview = ({ onCancel, formValues, submitPugRequest, history }) => {
                 <h5>Ready to take care of your new pug?</h5>
                 <h6>Please confirm your entries or click Back to return to the previous screen to make changes.</h6>
                 {reviewFields}
-                <button className="subdued-purple-secondary-button darken-3 btn-flat" style={{marginTop: '40px'}} onClick={onCancel}>
+                <button className="subdued-purple-secondary-button btn-flat" style={{marginTop: '40px'}} onClick={onCancel}>
                     Back
                 </button>
+                <Link to="/pugs" className="subdued-purple-secondary-button btn-flat spacer-left">
+                    Cancel
+                </Link>
                 <button className="subdued-purple btn-flat right white-text" style={{marginTop: '40px'}} onClick={() => submitPugRequest(formValues, history)}>
                     Add Pug
                     <i className="material-icons right">pets</i>
                 </button>
             </div>
             <style>{`
-                    .subdued-purple { background-color: rgb(127, 124, 175); }
-                    .subdued-purple-secondary-button { border: 2px solid rgb(127, 124, 175); color: rgb(127, 124, 175); }
+                    .subdued-purple { background-color: rgb(127, 124, 175); margin-top: 40px; }
+                    .subdued-purple-secondary-button { border: 2px solid rgb(127, 124, 175); color: rgb(127, 124, 175); margin-top: 40px; }
+                    .spacer-left {margin-left: 20px; }
             `}</style>
         </>
     );

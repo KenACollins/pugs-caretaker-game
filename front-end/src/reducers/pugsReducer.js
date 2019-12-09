@@ -1,5 +1,5 @@
-import { FETCH_PUGS, PUG_CARE, ADD_PUG, REMOVE_PUG } from '../actions/actionTypes';
-import { UNDERWEIGHT_TEMPERAMENT, OVERWEIGHT_TEMPERAMENT } from './unhealthyStates';
+import { FETCH_PUGS, PUG_CARE, PUG_NEGLECTED, ADD_PUG, REMOVE_PUG } from '../actions/actionTypes';
+import { UNDERWEIGHT_TEMPERAMENT, OVERWEIGHT_TEMPERAMENT, NEGLECTED_TEMPERAMENT } from './unhealthyStates';
 import { UNDERWEIGHT_WEIGHT_THRESHOLD, OVERWEIGHT_WEIGHT_THRESHOLD } from './unhealthyStates';
 const uuidv1 = require('uuid/v1');  // Package for generating a universally unique identifier (UUID).
 
@@ -44,6 +44,17 @@ export default function(pugs = [], action) {
                     else {  // Otherwise, pug is in safe range. Remove unhealthy temperament from first position in array if present.
                         pug.isUnhealthy = false;
                         if (pug.temperament.length === 2) { pug.temperament.shift(); }
+                    }
+                }
+                return pug;
+            });
+        case PUG_NEGLECTED: // Change pug to unhealthy state due to neglect.
+            return pugs.map(pug => {    // Loop through all the pugs and locate the one whose ID matches that of the pug being neglected.
+                if (pug.id === action.payload.pugId) {
+                    pug.isUnhealthy = true;
+                    if (pug.temperament.length === 1) { pug.temperament.unshift(NEGLECTED_TEMPERAMENT); }
+                    else {
+                        pug.temperament[0] = NEGLECTED_TEMPERAMENT;
                     }
                 }
                 return pug;
