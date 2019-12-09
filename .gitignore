@@ -1,3 +1,6 @@
 # Dependencies:
 # o Coded without leading '/' means ignore this file/folder path everywhere found within project - current folder and subfolders.
 node_modules
+
+# dev.js contains a sensitive Unsplash API key that should not be exposed in Git.
+dev.js
