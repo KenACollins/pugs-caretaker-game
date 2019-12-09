@@ -10,6 +10,7 @@ import PugAddForm from './form/PugAddForm';
 
 class App extends Component {
     render() {
+        console.log('****************** FRONT-END RUNNING IN: ' + process.env.NODE_ENV);
         return (
             <BrowserRouter>
                 <div>
