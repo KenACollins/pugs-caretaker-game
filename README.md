@@ -15,7 +15,7 @@ In case you are unfamiliar with Heroku, they assign ridiculous subdomains to eac
 ### First Steps
 You will initially be greeted at the landing page. Click the "Let's Go" link to begin the game. 
 
-Four pug cards will be loaded, each one including a photo, name, temperament, weight (in the 13-20 pound range), along with two buttons labeled "FEED ME" and "WALK ME". That is where YOU come in. Each time you feed the pug, it gains a half pound. Each time you walk the pug, it loses a quarter pound. Be careful about playing favorites because a pug can become unhealthy and die from neglect.
+Four pug cards will be loaded, each one including a photo, name, temperament, weight (in the 13-20 pound range), along with two buttons labeled FEED ME and WALK ME. That is where YOU come in. Each time you feed the pug, it gains a half pound. Each time you walk the pug, it loses a quarter pound. Be careful about playing favorites because a pug can become unhealthy and die from neglect.
 
 ### Unhealthy Pugs
 The safe weight range for a pug is between 10-20 pounds inclusive. There are three situations that cause a pug to become unhealthy (and which trigger a "countdown to death" timer):
@@ -29,7 +29,7 @@ When a pug initially becomes unhealthy, its temperament changes to one of the th
 ### Adopt More Pugs!
 While the game always starts you off with the same set of four initial pugs (though their images change with each new game), you have the option to add more. Just click the round purple + icon that is floating in the bottom right corner of your viewport.
 
-This will lead you to a form where you can fill out the criteria for the pug you are seeking to adopt. You want to give your new pug a name, temperament, and weight. Click Next and you will arrive at a screen to review your data entries. Click the BACK button to make changes or "ADD PUG" to submit your request. The system will automatically match you up with just the right pug at your desired weight and temperament who most resembles the name you have assigned.
+This will lead you to a form where you can fill out the criteria for the pug you are seeking to adopt. You want to give your new pug a name, temperament, and weight. Click NEXT and you will arrive at a screen to review your data entries. Click the BACK button to make changes or ADD PUG to submit your request. The system will automatically match you up with just the right pug at your desired weight and temperament who most resembles the name you have assigned.
 
 You will be returned to the pugs screen where the newest pug will be added along with the earlier pugs that were still alive at the time you went off to fill out the form.
 
