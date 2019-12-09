@@ -1,3 +1,3 @@
 module.exports = {
-    unsplashApiKey: process.env.UNSPLASH_API_KEY
+    UNSPLASH_API_KEY: process.env.REACT_APP_UNSPLASH_API_KEY
 };
