@@ -6,7 +6,6 @@ import originalPugs from '../pugs.json';
 // Calls a third party API to retrieve a random image of a pug and store its URL in state.lastRetrievedPugImageUrl property.
 export const fetchImage = () => async dispatch => {
     const response = await unsplash.get('/photos/random', { params: { query: 'pugs' } });
-    console.log('fetch image response', response);
     dispatch({ type: FETCH_IMAGE, payload: response.data.urls.small });
 }
 
