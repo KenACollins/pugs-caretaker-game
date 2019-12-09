@@ -10,23 +10,23 @@ Launch https://pure-everglades-60258.herokuapp.com/ in your web browser. Please 
 
 In case you are unfamiliar with Heroku, they assign ridiculous subdomains to each project when you are using a free account as I am. This is where "pure-everglades-60258" comes from.
 
-### How to Play
+## How to Play
 
-#### First Steps
+### First Steps
 You will initially be greeted at the landing page. Click the "Let's Go" link to begin the game. 
 
 Four pug cards will be loaded, each one including a photo, name, temperament, weight (in the 13-20 pound range), along with two buttons labeled "FEED ME" and "WALK ME". That is where YOU come in. Each time you feed the pug, it gains a half pound. Each time you walk the pug, it loses a quarter pound. Be careful about playing favorites because a pug can become unhealthy and die from neglect.
 
-#### Unhealthy Pugs
+### Unhealthy Pugs
 The safe weight range for a pug is between 10-20 pounds inclusive. There are three situations that cause a pug to become unhealthy (and which trigger a "countdown to death" timer):
 * Pug's weight exceeds 20 pounds. The pug's temperament becomes "Sedentary" and at some point the pug may die from lack of health, spending its days just watching TV on the couch and surfing the web, unless you start walking the pug to bring its weight down to 20 pounds or below.
 * Pug's weight drops below 10 pounds. The pug's temperament becomes "Malnourished" and the pug will perish due to malnutrition if not addressed within a short period of time by feeding the pug.
 * Pug's weight is in the safe range and it is normally active, but it hasn't been walked or fed in quite awhile. Its temperament becomes "Neglected" and the pug's days are numbered if not immediately taken for a walk or given a meal.
 
-#### Don't Let Your Pugs Die!
+### Don't Let Your Pugs Die!
 When a pug initially becomes unhealthy, its temperament changes to one of the three values specified above -- Sedentary, Malnourished, or Neglected -- and the styling of its temperament is depicted with red text and a frowning face icon. You, as caretaker, will see this change in pug status and have time to act. If you don't you will be notified when the countdown-to-death timer has reached the final seconds: "dead in 10, 9, 8, ..." If you still do not feed or walk the pug (as required to restore pug's health) and the countdown reaches zero, the pug will fade out and disappear permanently (well, by permanently, I just mean for the duration of the current game).
 
-#### Adopt More Pugs!
+### Adopt More Pugs!
 While the game always starts you off with the same set of four initial pugs (though their images change with each new game), you have the option to add more. Just click the round purple + icon that is floating in the bottom right corner of your viewport.
 
 This will lead you to a form where you can fill out the criteria for the pug you are seeking to adopt. You want to give your new pug a name, temperament, and weight. Click Next and you will arrive at a screen to review your data entries. Click the BACK button to make changes or "ADD PUG" to submit your request. The system will automatically match you up with just the right pug at your desired weight and temperament who most resembles the name you have assigned.
