@@ -45,6 +45,7 @@ I coded the solution with React and Redux. The source code is organized under th
 * **reducers** - Reducers used by Redux.
 
 There are also the following files at this level:
+
 * **index.js** - Main starting point of the React app which sets up the data layer control establishing Redux and App as the top level component for rendering.
 * **pugs.json** - The initial set of data for four pugs.
 
@@ -76,6 +77,9 @@ A pug within the final ten seconds of life is identified with a visual countdown
 
 ### Dead Pugs Fade Out
 When an unhealthy pug has reached its point of death, rather than disappear abruptly, it fades out before leaving the screen.
+
+### Responsive Design
+It is a responsive design that displays four pugs on medium to large screens and reduces to three columns, then two, and finally one long vertical column on the smallest devices such as cell phones. The pugs are intentionally laid out in a grid such that a newly added fifth pug will be positioned in the second row on the left below the first pug in the first row *rather than centered all by itself in the second row* (would not look right).
 
 ## Assumptions
 The specifications are unclear on some points. Below are the assumptions I made.
