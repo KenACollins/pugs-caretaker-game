@@ -55,7 +55,7 @@ function validate(values) {
      * If this code were placed after the formFields.forEach() statement, the invalid weight error would replace the missing weight error.
      */
     const weightEntered = Number(values.weightInPounds);
-    if (weightEntered === null || weightEntered < 13 || weightEntered > 20) {
+    if (isNaN(weightEntered) || weightEntered < 13 || weightEntered > 20) {
         errors.weightInPounds = "Weight must be a number between 13 and 20.";
     }
     else {
