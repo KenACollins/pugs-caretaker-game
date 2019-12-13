@@ -194,7 +194,8 @@ class PugCard extends Component {
                     .unhealthyTemperament { color: red; }
                     .subtext { font-size: smaller; }
                     .leftButton { margin-right: 20px; }
-                    .rightButton { background-color: rgb(40, 88, 123); }
+                    .btn-small.rightButton { background-color: rgb(40, 88, 123); }
+                    .btn-small.rightButton:hover { background-color: rgb(75, 125, 150); }
                     .fadeOut { animation: fadeOutKF 1s; }
                     @keyframes fadeOutKF { from { opacity: 1; } to { opacity: 0; } }
                 `}</style>
