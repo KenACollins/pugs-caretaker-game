@@ -1,11 +1,41 @@
+// import axios from 'axios';
 import unsplash from '../api/unsplash';
 import { START_GAME, FETCH_PUGS, FETCH_IMAGE, PUG_CARE, PUG_NEGLECTED } from './actionTypes';
 import { ADD_PUG, REMOVE_PUG, COUNT_DEAD_PUGS } from './actionTypes';
 import originalPugs from '../pugs.json';
 
-// Calls a third party API to retrieve a random image of a pug and store its URL in state.lastRetrievedPugImageUrl property.
+// const imageUrI = (window.location.href.includes('localhost:30')) ? '/random' : '/proxy/random';
+
+/**
+ * The fetchImage() action creator makes third party API calls to retrieve one random URL to an image of a pug. 
+ * 
+ * I originally tried using the suggested third party API, http://pugme.herokuapp.com/random, which returns its response in the
+ * data property and has the form {"pug":"http://27.media.tumblr.com/tumblr_ltuo57ahqE1qa6z3eo1_500.jpg"} so the image URL can be
+ * extracted from the response.data.pug property.
+ * 
+ * I found that this suggested third party API does not include an Access-Control-Allow-Origin header in its HTTP response and this 
+ * causes the web browser to issue an access forbidden Error 403 accompanied by a CORS warning that cross-site requests are refused. 
+ * I was able to get around this nuisance on my local development server running at localhost:3000, by installing the 
+ * http-proxy-middleware package in the front-end React app and by configuring src/setupProxy.js file.
+ * 
+ * However,the victory was short lived when the same problem resurfaced after I deployed my app on a production cloud service
+ * hosted by Heroku. My attempts at configuring a server-side proxy showed signs of success, but I was missing some small configuration
+ * step and the result was that I still was getting the access forbidden Error 403. 
+ * 
+ * My final recourse was to abandon the suggested third party API mentioned above in favor of using an API from Unsplash.com, that can
+ * also return a random image of a pug on each request, where I have a registered account as a developer and have been issued an API key.
+ * 
+ * The API response is in the data property and has the form {"pug":"http://27.media.tumblr.com/tumblr_ltuo57ahqE1qa6z3eo1_500.jpg"}
+ * so we extract the image URL from response.data.pug property.
+ */
+
+// Retrieves a random image of a pug and stores its URL in state.lastRetrievedPugImageUrl property.
 export const fetchImage = () => async dispatch => {
-    const response = await unsplash.get('/photos/random', { params: { query: 'pugs' } });
+/*     const response = await axios.get('/random');
+    dispatch({ type: FETCH_IMAGE, payload: response.data.pug }); */
+    const response = await unsplash.get('/photos/random', {
+        params: { query: 'pugs' }
+    });
     dispatch({ type: FETCH_IMAGE, payload: response.data.urls.small });
 }
 

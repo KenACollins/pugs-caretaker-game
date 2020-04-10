@@ -205,4 +205,14 @@ class PugCard extends Component {
 
 }
 
+/**
+ * Of the three action creators -- pugNeglected, removePug, and countDeadPugs --
+ * that we need to pass to PugCard as props, the first two act on a particular pug object
+ * identified by is id property which is already passed as props to our PugCard by PugList. 
+ * The countDeadPugs action creator acts on modifying the deadPugsCount state variable and
+ * does not require an input argument to be passed. 
+ * 
+ * Therefore, we do not need to define a mapStateToProps() function to extract any particular
+ * subset of state properties to pass to PugCard.
+ */
 export default connect(null, { pugNeglected, removePug, countDeadPugs })(PugCard);
