@@ -1,8 +1,8 @@
 // Import Express package along with Body Parser, Express HTTP Proxy, and CORS middleware.
-const express = require('express');
-const bodyParser = require('body-parser');
-const proxy = require('express-http-proxy');
-const cors = require("cors");
+const express = require("express");
+const bodyParser = require("body-parser");
+// const proxy = require('express-http-proxy');
+// const cors = require("cors");
 
 // Start Express server.
 const app = express();
@@ -11,7 +11,7 @@ const app = express();
 
 app.use(bodyParser.json());
 
-app.use(
+/* app.use(
     cors({
         // origin: 'localhost:3000',
         origin: '*',
@@ -19,22 +19,22 @@ app.use(
     })
 );
 
-app.use('/proxy', proxy('pugme.herokuapp.com'));
+app.use('/proxy', proxy('pugme.herokuapp.com')); */
 
 // app.get(), app.post(), etc. -- Invoke route handlers.
 
 // Import exported route handler function from pugRoutes.js and invoke it passing app object.
-require('./routes/pugRoutes')(app);
+// require("./routes/pugRoutes")(app);
 
 // Help Express in production locate routes in the front-end React client app when route handlers are not defined for them in the Express app.
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
     // If Express receives a route that precisely matches a file inside the front-end/build/ path such as static/js/main.js or static/css/main.css...
-    app.use(express.static('front-end/build'));
+    app.use(express.static("front-end/build"));
 
     // Otherwise, Express will serve up front-end/build/index.html if it does not recognize the route.
-    const path = require('path');
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'front-end', 'build', 'index.html'));
+    const path = require("path");
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "front-end", "build", "index.html"));
     });
 }
 
